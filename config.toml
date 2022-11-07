@@ -2,7 +2,7 @@ baseURL = "https://tigbox.github.io/"
 
 # theme
 # 主题
-theme = "LoveIt"
+theme = "anatole"
 # themes directory
 # 主题目录
 themesDir = "themes"
