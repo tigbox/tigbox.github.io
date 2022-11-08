@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-08T03:56:41+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.105.0">Hugo</generator><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-08T03:56:35+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">一、brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致……</summary><content type="html">&lt;p>一、brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-08T06:58:07+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.105.0">Hugo</generator><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-11-08T06:58:00+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
+&lt;p>Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的Mac更完美。&lt;/p>
+&lt;p>另外再说个题外话，homebrew的作者叫Max Howell（马克斯•霍威尔），Max Howell曾经参加Google面试，但Google拒绝了他，给出的答复是：“虽然我们90%的工程师都用你写的软件，但抱歉我们不能聘用你，因为你无法在白板上写出翻转二叉树。” 说这个梗没有具体的特指，提到这个趣事只是想说能力和应聘上的公司没有直接关系，合适就好。：）&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="使用科大源安装-homebrew">使用科大源安装 Homebrew&lt;/h2>
+&lt;p>首先在命令行运行如下几条命令设置环境变量&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HOMEBREW_BREW_GIT_REMOTE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;https://mirrors.ustc.edu.cn/brew.git&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HOMEBREW_CORE_GIT_REMOTE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;https://mirrors.ustc.edu.cn/homebrew-core.git&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HOMEBREW_BOTTLE_DOMAIN&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;https://mirrors.ustc.edu.cn/homebrew-bottles&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后在命令行运行 Homebrew 安装脚本&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">/bin/bash -c &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>curl -fsSL https://github.com/Homebrew/install/raw/HEAD/install.sh&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果无法下载，大概率是因为科学上网的问题。 那就用CDN来进行安装&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">/bin/bash -c &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>curl -fsSL https://cdn.jsdelivr.net/gh/Homebrew/install@HEAD/install.sh&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="卸载homebrew">卸载Homebrew&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">/bin/bash -c &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="切换到国内源">切换到国内源&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 替换brew.git:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>brew --repo&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 中国科大:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 清华大学:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 替换homebrew-core.git:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>brew --repo&lt;span class="k">)&lt;/span>&lt;span class="s2">/Library/Taps/homebrew/homebrew-core&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 中国科大:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 清华大学:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 替换homebrew-bottles:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 中国科大:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles&amp;#39;&lt;/span> &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">source&lt;/span> ~/.bash_profile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 清华大学:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&amp;#39;&lt;/span> &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">source&lt;/span> ~/.bash_profile
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 应用生效:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ brew update
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="切换到官方源">切换到官方源&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重置brew.git:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>brew --repo&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://github.com/Homebrew/brew.git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重置homebrew-core.git:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>brew --repo&lt;span class="k">)&lt;/span>&lt;span class="s2">/Library/Taps/homebrew/homebrew-core&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="brew-update">brew update&lt;/h2>
+&lt;p>每次进行homebrew install的时候默认是先执行updating Homebrew，大部分的时候没有必要，这个可以关闭。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">HOMEBREW_NO_AUTO_UPDATE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果是希望长期有效的话，如下&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="sb">`&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">HOMEBREW_NO_AUTO_UPDATE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>&lt;span class="sb">`&lt;/span> &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-08T06:58:00+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
 &lt;p>经常碰到一些因为「科学上网」导致的brew卡死问题， 如果你也遇见了，要么就翻一下， 要么就如下换一下源。&lt;/p>
 &lt;ol>
 &lt;li>
@@ -65,7 +202,7 @@
 &lt;p>&lt;code>brew update -v&lt;/code>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;p>二、brew install 总是显示No similarly named formulae found&lt;/p>
+&lt;h2 id="brew-install-总是显示no-similarly-named-formulae-found">brew install 总是显示No similarly named formulae found&lt;/h2>
 &lt;p>&lt;img src="https://tigbox.github.io/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/image-20221108112446414.png" alt="image-20221108112446414">&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
