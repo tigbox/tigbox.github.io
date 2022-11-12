@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-12T06:05:44+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.105.0">Hugo</generator><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-11-12T06:05:41+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-12T15:32:06+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.105.0">Hugo</generator><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-11-12T15:32:03+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
 &lt;p>二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。&lt;/p>
 &lt;p>每个含义各不相同， 今天就来用coding的方式来说一下如何判定是什么二叉树。&lt;/p>
 &lt;/blockquote>
@@ -236,7 +236,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="判定平衡二叉树">判定平衡二叉树&lt;/h2>
-&lt;p>这个没什么好说的了，直接来&lt;/p>
+&lt;p>这个没什么好说的了，用递归的办法简单直接的coding&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -306,6 +306,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>或者说IsBalance也可以写成如下这样&lt;/p>
+&lt;h3 id="递归中的单层函数a">递归中的单层函数A&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -321,15 +322,46 @@
 &lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;span class="lnt">12
 &lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 终止条件
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">root&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">...&lt;/span>&lt;span class="p">.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 单层函数，先判定当前节点的左右两边最大深度之差是否大于1，后判定左子树、右子树本身是否平衡
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nf">abs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">maxDepth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nf">maxDepth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="递归中的单层函数b">递归中的单层函数B&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 终止条件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="o">...&lt;/span>&lt;span class="p">.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 单层函数，先判定左子树、右子树本身是否平衡，后判定当前节点的左右两边最大深度之差是否大于1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nf">IsBalance&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nf">abs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nf">maxDepth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nf">maxDepth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">{&lt;/span>
@@ -340,7 +372,51 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-11-12T06:05:41+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
+&lt;/div>&lt;h3 id="是a快还是b快">是A快还是B快&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">cpu: Intel&lt;span class="o">(&lt;/span>R&lt;span class="o">)&lt;/span> Core&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> i5-5257U CPU @ 2.70GHz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkIsBalanceA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkIsBalanceA-4 &lt;span class="m">4246902&lt;/span> 275.5 ns/op
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkIsBalanceB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkIsBalanceB-4 &lt;span class="m">4230814&lt;/span> 281.6 ns/op
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>从结果上是A要快一点的，并且每次很稳定。原因是这里是双重递归，不论是A还是B，都是IsBalance递归调用IsBalance和maxDepth，maxDepth又递归调用maxDepth。&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-mermaid" data-lang="mermaid"> graph LR
+IsBalance--&amp;gt; IsBalance
+IsBalance--&amp;gt; maxDepth
+maxDepth--&amp;gt; maxDepth
+&lt;/code>&lt;/pre>&lt;p>从哲学角度maxDepth是更底层的依赖，不如直接去掉自身处于中间的IsBalance调用， 先请求maxDepth。&lt;/p>
+&lt;p>而且从单层函数的角度，更希望最先开展的就是算法逻辑本身， 而非嵌套。那么这个递归的代码模板就是。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nx">递归函数&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 终止条件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 单层函数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 算法逻辑本身
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 递归函数调用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-11-12T15:32:03+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
 &lt;p>说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法，因为golang的官方包把各种排序包括快拍、插入排序、堆排都考虑进去了，满足了不同条件下最优空间复杂度和时间复杂度。&lt;/p>
 &lt;h3 id="最基本的用法">最基本的用法&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -477,7 +553,7 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;/li>
-&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-11-12T06:05:41+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
+&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-11-12T15:32:03+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
 &lt;p>Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的Mac更完美。&lt;/p>
 &lt;p>另外再说个题外话，homebrew的作者叫Max Howell（马克斯•霍威尔），Max Howell曾经参加Google面试，但Google拒绝了他，给出的答复是：“虽然我们90%的工程师都用你写的软件，但抱歉我们不能聘用你，因为你无法在白板上写出翻转二叉树。” 说这个梗没有具体的特指，提到这个趣事只是想说能力和应聘上的公司没有直接关系，合适就好。：）&lt;/p>
 &lt;p>看到这里毫不犹疑的去leetcode上刷了一下二叉树反转的题，嗯，求生欲满满！&lt;/p>
@@ -646,7 +722,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">brew upgrade mongodb
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-12T06:05:41+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-12T15:32:03+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
 &lt;p>经常碰到一些因为「科学上网」导致的brew卡死问题， 如果你也遇见了，要么就翻一下， 要么就如下换一下源。&lt;/p>
 &lt;ol>
 &lt;li>
