@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-18T15:39:09+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.106.0">Hugo</generator><entry><title type="text">字符串</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/><id>https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-17T21:10:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">3.无重复字符的最长子串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 func lengthOfLongestSubstring(s string) int……</summary><content type="html">&lt;h2 id="3无重复字符的最长子串">3.无重复字符的最长子串&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-11-19T08:31:32+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.106.0">Hugo</generator><entry><title type="text">字符串</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/><id>https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-17T21:10:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">3.无重复字符的最长子串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 func lengthOfLongestSubstring(s string) int……</summary><content type="html">&lt;h2 id="3无重复字符的最长子串">3.无重复字符的最长子串&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -57,7 +57,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/><category scheme="https://tigbox.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/></entry><entry><title type="text">单链表</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/"/><id>https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-17T20:53:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">区间内的单链表反转 leetcode题号是92，整体翻转单链表很简单，而这个重点是你需……</summary><content type="html">&lt;h2 id="区间内的单链表反转">区间内的单链表反转&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/><category scheme="https://tigbox.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/></entry><entry><title type="text">单链表</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/"/><id>https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-17T20:53:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">区间内的单链表反转 leetcode题号是92，整体翻转单链表很简单，而这个重点是你需……</summary><content type="html">&lt;h2 id="区间内的单链表反转">区间内的单链表反转&lt;/h2>
 &lt;p>leetcode题号是92，整体翻转单链表很简单，而这个重点是你需要将整体切成三段，将中间那段翻转，然后收尾连接起来&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -335,7 +335,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/><category scheme="https://tigbox.github.io/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/></entry><entry><title type="text">排序</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-17T16:24:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">快速排序 理解的了话还是很简单的，不过如果让自己去发明快速排序的算法还是挺困难的。 核心……</summary><content type="html">&lt;h2 id="快速排序">快速排序&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/><category scheme="https://tigbox.github.io/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/></entry><entry><title type="text">排序</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-17T16:24:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">快速排序 理解的了话还是很简单的，不过如果让自己去发明快速排序的算法还是挺困难的。 核心……</summary><content type="html">&lt;h2 id="快速排序">快速排序&lt;/h2>
 &lt;p>理解的了话还是很简单的，不过如果让自己去发明快速排序的算法还是挺困难的。&lt;/p>
 &lt;p>核心就是针对数组的左右闭区间，在确定一个支点的情况下，把小于支点的都放左边、把大于支点的都放在右边。&lt;/p>
 &lt;p>依据这样分区思想再继续不断递归。&lt;/p>
@@ -572,7 +572,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/></entry><entry><title type="text">完全二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-16T23:17:05+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">完全二叉树的定义这里就不说了，问一下google就好。 判断是否完全二叉树 思路：定义r……</summary><content type="html">&lt;p>完全二叉树的定义这里就不说了，问一下google就好。&lt;/p>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/></entry><entry><title type="text">完全二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-16T23:17:05+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">完全二叉树的定义这里就不说了，问一下google就好。 判断是否完全二叉树 思路：定义r……</summary><content type="html">&lt;p>完全二叉树的定义这里就不说了，问一下google就好。&lt;/p>
 &lt;h2 id="判断是否完全二叉树">判断是否完全二叉树&lt;/h2>
 &lt;p>思路：定义root节点是0，那么左节点的索引就是1，右节点的索引就是2，以此类推。&lt;/p>
 &lt;p>如果是完全二叉树，假设当前的节点索引是index，那么&lt;code>左节点的索引就是2*index+1&lt;/code>，&lt;code>右节点的索引是2*index+1&lt;/code>,按照这个思路，总是能计算出最大的那个index的， 并且在这个过程中记录size的数量。最后看&lt;code>size是否等于index+1&lt;/code>，如果相等说明是完全二叉树。&lt;/p>
@@ -732,7 +732,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树序列化和反序列化</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-13T13:06:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树序列化 进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递……</summary><content type="html">&lt;h2 id="二叉树序列化">二叉树序列化&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树序列化和反序列化</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-13T13:06:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树序列化 进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递……</summary><content type="html">&lt;h2 id="二叉树序列化">二叉树序列化&lt;/h2>
 &lt;p>进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递归实现的话比较简单，当然除了这三种还有层序遍历甚至S型的层序遍历。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1324,7 +1324,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
 &lt;p>二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。&lt;/p>
 &lt;p>每个含义各不相同， 今天就来用coding的方式来说一下如何判定是什么二叉树。&lt;/p>
 &lt;/blockquote>
@@ -1855,157 +1855,11 @@ maxDepth--&amp;gt; maxDepth
 /
 1&lt;/p>
 &lt;p>返回 true，因为 B 与 A 的一个子树拥有相同的结构和节点值。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;span class="lnt">53
-&lt;/span>&lt;span class="lnt">54
-&lt;/span>&lt;span class="lnt">55
-&lt;/span>&lt;span class="lnt">56
-&lt;/span>&lt;span class="lnt">57
-&lt;/span>&lt;span class="lnt">58
-&lt;/span>&lt;span class="lnt">59
-&lt;/span>&lt;span class="lnt">60
-&lt;/span>&lt;span class="lnt">61
-&lt;/span>&lt;span class="lnt">62
-&lt;/span>&lt;span class="lnt">63
-&lt;/span>&lt;span class="lnt">64
-&lt;/span>&lt;span class="lnt">65
-&lt;/span>&lt;span class="lnt">66
-&lt;/span>&lt;span class="lnt">67
-&lt;/span>&lt;span class="lnt">68
-&lt;/span>&lt;span class="lnt">69
-&lt;/span>&lt;span class="lnt">70
-&lt;/span>&lt;span class="lnt">71
-&lt;/span>&lt;span class="lnt">72
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">TreeNode&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Val&lt;/span> &lt;span class="kt">int&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Right&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">HasSubtree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="kt">bool&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 内部有递归，这是在锚定当前两个节点值相等情况下继续探查其余的部分，「头相等了，其他的部分是否相等」
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">isAhasB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">result&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 递归调用，a树的子树是否包含b
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">HasSubtree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nf">HasSubtree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">result&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">isAhasB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 这里很有讲究，要b先判断，再判断a。如果先判断a，碰到叶子节点的left和right是nil，那么直接返回false就会永远错误
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nf">isAhasB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nf">isAhasB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">str1&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="s">&amp;#34;1,2,3,null,null,4,null,null,5,null,null&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">generateTree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str1&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">str2&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="s">&amp;#34;3,4,null,null&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">generateTree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str2&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">spew&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Dump&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">spew&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Dump&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">HasSubtree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">generateTree&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">arr&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;,&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">build&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">TreeNode&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">current&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s">&amp;#34;null&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">val&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">strconv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Atoi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">current&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">TreeNode&lt;/span>&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Val&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">val&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Left&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nf">build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Right&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nf">build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">index&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nf">build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
+&lt;p>思路：&lt;strong>A是否包含B，那应该当A的任意一个节点val等于B的root节点val的时候，锚定保持不动的情况，两棵树的左子树都相等同事两棵树的右子树也相等&lt;/strong>。那开始写代码吧&lt;/p>
+&lt;p>先写底层依赖，锚定保持两棵树保持不动逐个节点进行比较的场景&lt;/p>
+&lt;p>&lt;img src="https://tigbox.github.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/isAhasB.gif" alt="isAhasB">&lt;/p>
+&lt;p>再写上层调用，A树不断遍历，找准和B树头节点相等的情况，当找到节点和B的root相同的时候就调用底层依赖。&lt;/p>
+&lt;p>&lt;img src="https://tigbox.github.io/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/HasSubtree.gif" alt="HasSubtree">&lt;/p></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
 &lt;p>说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法，因为golang的官方包把各种排序包括快拍、插入排序、堆排都考虑进去了，满足了不同条件下最优空间复杂度和时间复杂度。&lt;/p>
 &lt;h3 id="最基本的用法">最基本的用法&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2142,7 +1996,7 @@ maxDepth--&amp;gt; maxDepth
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;/li>
-&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
+&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
 &lt;p>Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的Mac更完美。&lt;/p>
 &lt;p>另外再说个题外话，homebrew的作者叫Max Howell（马克斯•霍威尔），Max Howell曾经参加Google面试，但Google拒绝了他，给出的答复是：“虽然我们90%的工程师都用你写的软件，但抱歉我们不能聘用你，因为你无法在白板上写出翻转二叉树。” 说这个梗没有具体的特指，提到这个趣事只是想说能力和应聘上的公司没有直接关系，合适就好。：）&lt;/p>
 &lt;p>看到这里毫不犹疑的去leetcode上刷了一下二叉树反转的题，嗯，求生欲满满！&lt;/p>
@@ -2311,7 +2165,7 @@ maxDepth--&amp;gt; maxDepth
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">brew upgrade mongodb
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-18T15:39:05+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-11-19T08:31:29+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
 &lt;p>经常碰到一些因为「科学上网」导致的brew卡死问题， 如果你也遇见了，要么就翻一下， 要么就如下换一下源。&lt;/p>
 &lt;ol>
 &lt;li>
