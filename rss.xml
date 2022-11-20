@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.106.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 20 Nov 2022 14:53:52 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>排列组合</title><link>https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</guid><pubDate>Sun, 20 Nov 2022 22:25:22 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="排列组合">排列组合&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.106.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 20 Nov 2022 15:37:38 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>排列组合</title><link>https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</guid><pubDate>Sun, 20 Nov 2022 22:25:22 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="排列组合">排列组合&lt;/h2>
 &lt;p>经典的三数之和&lt;/p>
 &lt;p>从中得到一些经验是如何跳过当前两项值相等的情况&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -730,6 +730,81 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">head&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">head&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="合并k个升序的链表">合并k个升序的链表&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">mergeKLists&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lists&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">dummyNode&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">v&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">lists&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">dummyNode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">merge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dummyNode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">dummyNode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">merge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">dummyNode&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dummyNode&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span>&lt;span class="o">&amp;lt;=&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Val&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>&lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">current&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">current&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">dummyNode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
