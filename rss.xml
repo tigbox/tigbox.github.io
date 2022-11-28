@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.107.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 26 Nov 2022 12:16:23 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>卡特兰数</title><link>https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</guid><pubDate>Sat, 26 Nov 2022 19:31:26 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>卡特兰数是一个应用非常广的数列。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.107.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 28 Nov 2022 16:22:13 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>数据库持久化横向比较</title><link>https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/</guid><pubDate>Mon, 28 Nov 2022 22:02:47 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="redis的持久化">redis的持久化&lt;/h1>
+&lt;h2 id="rdb是快照备份全量备份">rdb是快照备份（全量备份）&lt;/h2>
+&lt;p>rdb是把内存中的数据以快照集的方式写入磁盘。&lt;/p>
+&lt;p>rdb(redis database)是redis默认的持久化方式，在redis config文件中，你可以指定一定的时间周期和操作次数，但凡有一种阈值撞线了，都会执行rdb的备份，生成dump.rdb文件。当redis重启的时候通过加载dump.rdb来回复数据。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">save &amp;lt;second&amp;gt; &amp;lt;changes&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">save &lt;span class="m">900&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="c1"># 900s有一个更改，就会触发&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">save &lt;span class="m">300&lt;/span> &lt;span class="m">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">save &lt;span class="m">60&lt;/span> &lt;span class="m">10000&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dbfilename dump.rdb &lt;span class="c1"># rdb文件名称&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rdbcompression yes &lt;span class="c1"># rdb压缩是否开启，默认是开启的&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>除了配置指定的方式， 还有可以通过手动save或者bgsave的方式来触发快照保存。&lt;/p>
+&lt;p>可以预见的是无论是自动触发的还是手动触发的，都是快照， 而从快照进行数据恢复是没有办法保证fail over之后的数据一致性的。&lt;/p>
+&lt;p>BTW：实际是bgsave rdb操作是fork子进程，但是fork的过程是比较耗费CPU资源的，并且save期间的增量changes需要额外的进行copy，这就很可能导致保存快照的时间比较长， 而快照往往是某一个时间的快照。这就好比我们从t0时刻进行快照， 直到tn时刻才完成快照的磁盘存储，已经很难说它就是t0时刻的数据快照了。&lt;/p>
+&lt;h2 id="aof增量备份">AOF（增量备份）&lt;/h2>
+&lt;p>aof（append only file）对写入redis操作进行记日志的追加操作。它是为了弥补刚才说的rdb的不足（快照的粒度怎么说都不够细）。对应的是aof策略有三种：always、every second、no三种策略。&lt;/p>
+&lt;p>always就是同步策略，每写入一次就记录log一次。&lt;/p>
+&lt;p>every second：操作都会记录到一个缓冲区域中， 每秒将缓冲区域记录到aof日志。这也是redis默认的aof策略。&lt;/p>
+&lt;p>no：redis将写aof的触发交给操作系统。&lt;/p>
+&lt;p>这三种策略always的数据一致性最强，性能最低是同步策略。 no策略性能最强，但是不能保证数据一致性。&lt;/p>
+&lt;p>如果aof是不断的追加， 那么appendonly.aof会越来越大，这显然是不合理的，当超过&lt;code>aof文件大小是上次rewrite的大小，并且文件超过64M&lt;/code>就会进行压缩，压缩过程也比较简单， 比如aof针对一个key 有lpush key value1，lpush key value2这样的数据就会压缩成lpush key value1 value2&lt;/p>
+&lt;h2 id="小结">小结&lt;/h2>
+&lt;ul>
+&lt;li>RDB是快照数据， 比较适合大规模的数据恢复。&lt;/li>
+&lt;li>RDB由于触发机制的缺陷，导致数据完整性和一致性并不高。&lt;/li>
+&lt;li>AOF的数据完整性和一致性相对较高。&lt;/li>
+&lt;li>AOF如果是从开天辟地开始记录，内容会越来越多，文件会越来越大，数据恢复也会越来越慢。&lt;/li>
+&lt;/ul>
+&lt;p>如果只是拿redis当做缓存来用， 可以关闭持久化。 否则的话，还是开启持久化。 要做特别精细的数据恢复，可以RDB和AOF都开启，depops方向可以从RDB中恢复快照数据， 然后找准AOF的offset点开始做AOF数据重放。&lt;/p>
+&lt;p>trick就是需要根据时间快速找到需要执行的AOF数据。&lt;/p>
+&lt;h1 id="mongodb的持久化">mongodb的持久化&lt;/h1>
+&lt;h2 id="journal">journal&lt;/h2>
+&lt;p>和mysql不一样， mysql是每次写入操作都写入硬盘， 而mongodb是先写入内存再持久化到硬盘中的。&lt;/p>
+&lt;p>具体顺序是 journal buffer --》更新数据 --》返回结果给客户端&lt;/p>
+&lt;p>journal会以100ms的间隔批量的刷到磁盘上。&lt;/p>
+&lt;p>BTW：journal是存储引擎层面的概念。提到mongodb的存储引擎， 有印象的就是wirdtiger 怪虎，如果不配置journal就不会立即做持久存储，那么会一分钟做一次存量备份即checkpoint，所以如果出现宕机，只能恢复到最近的一次checkpoint。&lt;/p>
+&lt;p>小结：要是能开启journal就开启。journal是mongodb持久化并做数据恢复的。&lt;/p>
+&lt;h2 id="oplog">oplog&lt;/h2>
+&lt;p>oplog是mongodb主从复制层面的概念，数据写到primary之后会记录一条oplog，secondary从primary拉取到oplog并做重放。&lt;/p>
+&lt;p>对于复制集的primary节点来说， 一条的数据的写入经过三个步骤，并且这三个步骤要保持一定的原子性。&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-shelll" data-lang="shelll">1. 将document写入到对应的collection
+2. 更新当前集合的所有索引信息
+3. 写入一条oplog用于后序从primary到secondary的同步
+&lt;/code>&lt;/pre>&lt;h2 id="小结-1">小结&lt;/h2>
+&lt;ul>
+&lt;li>journal是存储引擎层面的，目的是为了做单机的持久化。&lt;/li>
+&lt;li>oplog是是主从复制层面的，用来做数据同步。当primary宕机， secondary如果顺利的完成oplog的同步和重放， 就可以成为primay。&lt;/li>
+&lt;li>可以mongodb的oplog类比于redis的aof&lt;/li>
+&lt;/ul>
+&lt;h1 id="mysql的持久化">mysql的持久化&lt;/h1>
+&lt;p>经典的有binlog和redolog。&lt;/p>
+&lt;p>binlog是归档日志，是主从复制和数据恢复的时候使用的。 而redolog是fail over的时候做crash safe的。&lt;/p>
+&lt;p>提到mysql，自然想到多重存储引擎， redolog是innodb才有的，而binlog是mysql server层实现的，不惯哪种存储引擎都会有binlog。&lt;/p>
+&lt;p>binlog记录的是逻辑操作，redolog是记录数据如何变化的。&lt;/p>
+&lt;p>redolog循环写、空间固定；binlog是追加写的，文件到达指定大小后会切换下一个binlog，不会覆盖以前的日志。&lt;/p>
+&lt;h3 id="redolog和undolog">redolog和undolog&lt;/h3>
+&lt;p>提到了redolog，肯定会想到undolog。要比较这两者， 就要说到事务，事务commit了才会写入到redolog中，而处于prepare却没有commit的数据会写入到undolog中。 你也可以这样记忆， 写入undolog中的数据一定会出现在redolog中。&lt;/p>
+&lt;p>当mysql宕机重启之后，要保证已经提交的事务的数据依旧存在，而没有提交的事务自然回滚。&lt;/p>
+&lt;p>所以从redolog中恢复数据， 针对undolog中的数据进行rollback。&lt;/p>
+&lt;h2 id="小结-2">小结&lt;/h2>
+&lt;ul>
+&lt;li>binlog是归档日志，不断地追加写，所以不会覆盖以前的日志，毕竟归档会越来越多越来越大。&lt;/li>
+&lt;li>binlog是主从复制用的。slave节点从master节点拉取binlog，并在自己本地做数据重放。&lt;/li>
+&lt;li>redolog是物理日志，空间固定循环写。&lt;/li>
+&lt;li>redolog在宕机恢复的时候会用上。具体是从idb中恢复--》从redolog中恢复--》对undolog中的数据进行rollback。&lt;/li>
+&lt;li>保证数据一致性就需要保证redolog和binlog的一致，mysql引入两阶段提交2pc来干这个。将redolog的写入拆成两步骤：prepare和commit。&lt;/li>
+&lt;/ul>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;ul>
+&lt;li>redis的rdb就是存量备份，aof就是增量备份的归档。简单好理解。&lt;/li>
+&lt;li>mongodb先journal再更新数据，是很小时间间隔的增量数据备份。而oplog是归档日志。&lt;/li>
+&lt;li>mysql wal的设计决定了它先日志后数据存储。redolog是粉板，undolog是需要rollback的数据，binlog是归档日志。redolog是保证单机宕机恢复的， binlog是主从复制机正常数据恢复的。&lt;/li>
+&lt;/ul>
+&lt;p>存量备份： &lt;code>rdb&lt;/code>&lt;/p>
+&lt;p>归档日志：&lt;code>aof&lt;/code>、&lt;code>oplog&lt;/code>、&lt;code>binlog&lt;/code>&lt;/p>
+&lt;p>异常宕机恢复日志：&lt;code>journal&lt;/code>、&lt;code>redolog&lt;/code> 这两个东西都是物理日志并且指定了buffer长度。&lt;/p></description><category domain="https://tigbox.github.io/categories/rdb-aof-oplog-binlog/">rdb aof oplog binlog</category><category domain="https://tigbox.github.io/tags/rdb-aof-oplog-binlog/">rdb aof oplog binlog</category></item><item><title>卡特兰数</title><link>https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</guid><pubDate>Sat, 26 Nov 2022 19:31:26 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>卡特兰数是一个应用非常广的数列。&lt;/p>
 &lt;p>[1,1,2,5,14,,42,132,429,1430,4862]至于证明的过程就放在以后了。&lt;/p>
 &lt;p>用coding的方式求卡特兰数如下&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
