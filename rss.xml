@@ -1,7 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 08 Dec 2022 15:31:58 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>延迟双删策略</title><link>https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</guid><pubDate>Thu, 08 Dec 2022 21:22:25 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="延迟双删策略">延迟双删策略&lt;/h1>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 13 Dec 2022 14:25:47 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>Golang调度模型</title><link>https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/</link><guid isPermaLink="true">https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/</guid><pubDate>Tue, 13 Dec 2022 20:57:53 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="背景知识">背景知识&lt;/h2>
+&lt;h3 id="单进程">单进程&lt;/h3>
+&lt;p>单机单进程的情况不需要调度，就一个进程，让它同步依次执行串行代码，你想调度也调度不了什么。&lt;/p>
+&lt;p>很明显，单进程的阻塞会带来CPU时间片的浪费，执行影响性能。&lt;/p>
+&lt;h3 id="多进程多线程调度">多进程/多线程调度&lt;/h3>
+&lt;p>比如php、早期的python就是多进程的方式，相比于之前的单进程它解决了阻塞的问题，CPU的时间片相对充分的利用起来了。&lt;/p>
+&lt;p>当然也有新的问题产生。&lt;/p>
+&lt;ul>
+&lt;li>虽然是多进程的模式，但是进程的创建、切换、销毁都会占用很长时间，因为进程占用的内存资源比较多。&lt;/li>
+&lt;li>进程内存占用4G（32位操作系统）。多进程对内存要求还是挺高的，单个进程光初始化就花费很久。&lt;/li>
+&lt;li>线程大约用4M。&lt;/li>
+&lt;li>如果进程是4G，线程是4M，那么上下文切换的时间也挺恐怖。&lt;/li>
+&lt;/ul>
+&lt;h3 id="引入协程">引入协程&lt;/h3>
+&lt;p>进程和线程的关系是1：N的，是否进程：线程：协程类似于学校：班级：学生的关系呢？&lt;/p>
+&lt;p>不是的。进程线程协程的关系是1：N：M的。M个协程绑定一个线程，并且可以被working stealing。即某个goroutine是在线程1中被go func出来的， 并且放到了本地runq中一直等待，此时恰逢线程2获得了CPU资源并且线程2没有什么要执行的goroutine，就会从线程1中偷一些goroutine来执行。&lt;/p>
+&lt;p>协程的特点是&lt;/p>
+&lt;ul>
+&lt;li>占用空间小，通常是几kb。具体能创建多少个协程受看内存的上限。&lt;/li>
+&lt;li>因为只占几k的内存空间， 所以切换速度很快。&lt;/li>
+&lt;li>用go func来创建协程&lt;/li>
+&lt;/ul>
+&lt;h3 id="最初的调度-gm模型">最初的调度-GM模型&lt;/h3>
+&lt;p>G-goroutine，M-thread，他们是N:M的模型， 即N个goroutine，M个thread。&lt;/p>
+&lt;p>有一个全局队列存放G，除了main对应的G0，go func了M-1次，一共有M个goroutine都被这个全局队列管理，N个thread想要访问同一个goroutine就需要对全局队列进行互斥锁的处理。&lt;/p>
+&lt;ul>
+&lt;li>创建、销毁、调度goroutine都需要对应的thread获取锁。竞争激烈。&lt;/li>
+&lt;/ul>
+&lt;h3 id="目前的gpm模型">目前的GPM模型&lt;/h3>
+&lt;p>G-goroutine，P-processor，M-thread。&lt;/p>
+&lt;p>当前线程go func出来的goroutine只有获得CPU资源的时候才能正常运行。这三个东西都怎么来的？&lt;/p>
+&lt;ul>
+&lt;li>G-go func，每个goroutine 2~4K，数量收当前机器的内存限制。&lt;/li>
+&lt;li>M-debug.SetMaxTheads，默认数量限制是10000。&lt;/li>
+&lt;li>P-runtime.GOMAXPROCS，默认当前ECS的核心数，即便超过核数也没用， 所以只能小于等于。&lt;/li>
+&lt;/ul>
+&lt;p>每个P都对应三个执行队列， 分别是runnext、local-runq（可盛放256个goroutine）、和共享的global-runq。&lt;/p>
+&lt;ol>
+&lt;li>runnext可以理解成没有buffer的channel，局部性原理决定了能runnext就runext，不能就local。「有乔选乔无乔选鲨」&lt;/li>
+&lt;li>local-runq可以理解成buffer长度是256的channel，push到队尾。&lt;/li>
+&lt;li>如果local-runq已经满了，那么打入到没有长度限制的全局队列global-runq中。&lt;/li>
+&lt;/ol>
+&lt;p>可以看出相较于GM模型， GPM模型其实是将临界资源抢占变成了多级队列管理从而提升了调度的并发性能。&lt;/p>
+&lt;h3 id="调度器的设计策略">调度器的设计策略&lt;/h3>
+&lt;p>未完待续......&lt;/p></description><category domain="https://tigbox.github.io/categories/golang/">golang</category><category domain="https://tigbox.github.io/tags/golang/">golang</category></item><item><title>延迟双删策略</title><link>https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</guid><pubDate>Thu, 08 Dec 2022 21:22:25 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="延迟双删策略">延迟双删策略&lt;/h1>
 &lt;p>为了保护持久层同时获得相对好的性能，往往针对一些场景我们会引入缓存。但是分布式技术几乎没有一本万利的，当同样的一份数据存储在多个的地方的时候数据一致性就成了问题， 只能尽量的保证CP。&lt;/p>
 &lt;ul>
-&lt;li>经常修改的持久层数据，就不太适合做缓存了。 毕竟做缓存大部分场景式写少读多的场景。&lt;/li>
+&lt;li>经常修改的持久层数据，就不太适合做缓存了。 毕竟做缓存大部分场景是写少读多的场景。&lt;/li>
 &lt;/ul>
 &lt;h2 id="思考路径">思考路径&lt;/h2>
 &lt;p>既然是缓存，对于读场景，处理流程是如果缓存层中存在，那么直接返回；如果缓存层中不存在，从持久层中查询并return，当然要记得defer写入缓存层。&lt;/p>
