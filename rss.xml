@@ -1,10 +1,339 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 14 Dec 2022 13:19:18 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>Golang内存管理</title><link>https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link><guid isPermaLink="true">https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid><pubDate>Wed, 14 Dec 2022 10:52:50 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>提到golang内存管理，第一反应就是不是类似于malloc和free进行自主的内存分配和回收，而是统统交给runtime随着你初始化对象、修改值、重改而变化。为什么会这样设计呢？官方给的解释是「为了更好的进行内存使用」，比如内存池，预分配。其实也好理解，类比于做饭料理，内存是比较高级的食材，交给普通人大概就给浪费掉了。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 26 Dec 2022 16:21:10 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>Git</title><link>https://tigbox.github.io/posts/git/</link><guid isPermaLink="true">https://tigbox.github.io/posts/git/</guid><pubDate>Fri, 16 Dec 2022 20:01:53 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="git的分层存储">git的分层存储&lt;/h2>
+&lt;ul>
+&lt;li>远端仓库remote repository&lt;/li>
+&lt;li>本地仓库remote repository(隶属于版本库)&lt;/li>
+&lt;li>暂存区index/stage（隶属于版本库）&lt;/li>
+&lt;li>工作区workspace&lt;/li>
+&lt;/ul>
+&lt;p>上层相对稳定，下层相对灵活。越在下层越容易改动，越在上层改动成本越大。&lt;/p>
+&lt;h2 id="如何理解git">如何理解git&lt;/h2>
+&lt;p>要了解和熟悉git，简单的说就是两个要点&lt;/p>
+&lt;ul>
+&lt;li>知道当前在哪里&lt;/li>
+&lt;li>知道要到哪里去&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://mermaid.live/edit#pako:eNo9kTFvgkAYhv8K-SZNENFTQAYTlbFd2q3icDlOIQJH4Ei14tK13bo0DWuTDm3SrYlN0z8jtj-jh0i_6fLk-d4veW8DhDkUTFjEOHKlsws7lMSMpo2YBoxTKaYRSzzO4vXvd_7zcrf_fCh2D82Z1Gq1hhnxWUjbc8qJm0njcqm2D_lrkb_X9im1XDrNUMqi1Pczq3HN4mUSYUKLj-f9V17c75qVPpYqj7iULFnKM-ufK0oVkLjZqIJWDbHjZJPG1AsdumonHC_o4em2eHsUubNT8KR2CQsCj2djkCGgcYA9RzSxKSUbuEsDaoMpng6OlzbY4VZ4OOXsch0SMHmcUhnSyMGcWh4WBQZgzrGfCBrhEMwNrMDUkKJrqmoMVAPp_f4AaTKswex0kdIRUDdQr4uQwFsZbhgTEaqiI03TUUfXuoahqT1dBuqUpZ5XX0VYOPcWcLxydVw5Xt3-AWhWnNE">&lt;img src="https://mermaid.ink/img/pako:eNo9kTFvgkAYhv8K-SZNENFTQAYTlbFd2q3icDlOIQJH4Ei14tK13bo0DWuTDm3SrYlN0z8jtj-jh0i_6fLk-d4veW8DhDkUTFjEOHKlsws7lMSMpo2YBoxTKaYRSzzO4vXvd_7zcrf_fCh2D82Z1Gq1hhnxWUjbc8qJm0njcqm2D_lrkb_X9im1XDrNUMqi1Pczq3HN4mUSYUKLj-f9V17c75qVPpYqj7iULFnKM-ufK0oVkLjZqIJWDbHjZJPG1AsdumonHC_o4em2eHsUubNT8KR2CQsCj2djkCGgcYA9RzSxKSUbuEsDaoMpng6OlzbY4VZ4OOXsch0SMHmcUhnSyMGcWh4WBQZgzrGfCBrhEMwNrMDUkKJrqmoMVAPp_f4AaTKswex0kdIRUDdQr4uQwFsZbhgTEaqiI03TUUfXuoahqT1dBuqUpZ5XX0VYOPcWcLxydVw5Xt3-AWhWnNE?type=png" alt="">&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>最开始从git clone拷贝形成本地仓库，如果本地仓库已经存在需要获取远端的最新状态的话就需要执行git fetch。&lt;/li>
+&lt;li>经常性的做工作区分支的切换、创建，那就需要git checkout命令。&lt;/li>
+&lt;li>涉及到写入的流程的话， 就是经典的git add、git commit、git push三步走。&lt;/li>
+&lt;/ol>
+&lt;h2 id="经常会碰到的放弃">经常会碰到的放弃&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>changeset还没有add，本地工作区放弃刚才做的改动。&lt;/p>
+&lt;p>&lt;code>只在本地工作区&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 本地所有修改都不要了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 本地修改中只有一个文件需要回滚&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout -- fileName
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>代码已经在暂存区（changeset已被git add但是还没有git commit）&lt;/p>
+&lt;p>&lt;code>在本地工作区和暂存区&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 放弃所有修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset HEAD
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 放弃一个文件的修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset HEAD fileName
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此时，本地的修改不会消失。只是相当于changeset从「暂存区」退回到「本地工作区」。&lt;/p>
+&lt;p>如果你想继续放弃、回滚本地修改，那么就用上面介绍的&lt;code>git checkout&lt;/code>命令；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>代码已经在本地仓库（changeset已被commit但是还没有push）&lt;/p>
+&lt;p>&lt;code>在本地工作区和暂存区和本地仓库&lt;/code>&lt;/p>
+&lt;p>&lt;strong>hard 模式&lt;/strong>，hard意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库==暂存区==本地工作区&lt;/li>
+&lt;li>单链表的最后一个节点，即如果你进行git log操作，本地仓库是看不到后面的新的commitID的&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>soft模式，意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库!=暂存区=本地工作区，即你之前的changeset并没有丢失，而是放在暂存区，即git add后的效果，是绿色的。&lt;/li>
+&lt;li>本地仓库并非以指定的commitID作为最后一个节点， 你依旧可以看到它之后的。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --soft HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --soft commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>mixed模式&lt;/strong>（不常用），mixed模式意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库==暂存区!=本地工作区，即你之前的changeset并没有丢失，而是放在本地工作区，看git status是依旧可以git add的，是红色的。&lt;/li>
+&lt;li>本地仓库并非以指定的commitID作为最后一个节点， 你依旧可以看到它之后的。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --mixed HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --mixed commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>小结&lt;/p>
+&lt;ul>
+&lt;li>checkout放弃本地修改&lt;/li>
+&lt;li>reset+checkout 放弃暂存区改动&lt;/li>
+&lt;li>reset --hard放弃已经提交到本地仓库的改动&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://mermaid.live/edit#pako:eNpl0L1uwkAMAOBXOXkCKeEBMlSCMpalbPQYrJwhEeQuujgDIizMbCwIZWVrpW5IIN6G4zk4ftqh9eSfb7A9h9goggjGFvNEvL1LLXy0P9x-dz7VbnUYirDVCl-qccoiTiiemJIr0X64TuOyXbqvjXdNET6VpYK4eorXxqX-dPX3-bh2h_Uf5KsErfq1_6aFGXHVkRoCyMhmmCq_6vymJXBCGUmIfKrQTiRIvfAOSzb9mY4hYltSAGWukKmbor8wg2iE08J3SaVsbO9x-_0FAeSoB8b8mMUVothmmA">&lt;img src="https://mermaid.ink/img/pako:eNpl0L1uwkAMAOBXOXkCKeEBMlSCMpalbPQYrJwhEeQuujgDIizMbCwIZWVrpW5IIN6G4zk4ftqh9eSfb7A9h9goggjGFvNEvL1LLXy0P9x-dz7VbnUYirDVCl-qccoiTiiemJIr0X64TuOyXbqvjXdNET6VpYK4eorXxqX-dPX3-bh2h_Uf5KsErfq1_6aFGXHVkRoCyMhmmCq_6vymJXBCGUmIfKrQTiRIvfAOSzb9mY4hYltSAGWukKmbor8wg2iE08J3SaVsbO9x-_0FAeSoB8b8mMUVothmmA?type=png" alt="">&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="git-rebase">git rebase&lt;/h2>
+&lt;p>&lt;code>git rebase -i&lt;/code>，rebase操作对于码农来说应该不陌生的，这里不降基本概念和常规操作了，说一些非常规操作。&lt;/p>
+&lt;h3 id="在一个分支对多个commit进行操作">在一个分支对多个commit进行操作&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 命令:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># p, pick &amp;lt;提交&amp;gt; = 使用提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># r, reword &amp;lt;提交&amp;gt; = 使用提交，但修改提交说明&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># e, edit &amp;lt;提交&amp;gt; = 使用提交，进入 shell 以便进行提交修补&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s, squash &amp;lt;提交&amp;gt; = 使用提交，但融合到前一个提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># f, fixup &amp;lt;提交&amp;gt; = 类似于 &amp;#34;squash&amp;#34;，但丢弃提交说明日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># x, exec &amp;lt;命令&amp;gt; = 使用 shell 运行命令（此行剩余部分）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># b, break = 在此处停止（使用 &amp;#39;git rebase --continue&amp;#39; 继续变基）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># d, drop &amp;lt;提交&amp;gt; = 删除提交&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>假设我们在 &lt;code>feature&lt;/code> 分支有如下提交：提交的次序是A--&amp;gt;B--&amp;gt;C--&amp;gt;D--&amp;gt;E--&amp;gt;F&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">74199cebdd34d107bb67b6da5533a2e405f4c330 &lt;span class="o">(&lt;/span>HEAD -&amp;gt; feature&lt;span class="o">)&lt;/span> commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">e7c7111d807c1d5209b97a9c75b09da5cd2810d4 commit E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">d9623b0ef9d722b4a83d58a334e1ce85545ea524 commit D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">73deeedaa944ef459b17d42601677c2fcc4c4703 commit C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">c50221f93a39f3474ac59228d69732402556c93b commit B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ef1372522cdad136ce7e6dc3e02aab4d6ad73f79 commit A
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git rebase -i ef1372522cdad136ce7e6dc3e02aab4d6ad73f79 &lt;span class="c1"># 参数是提交 A 的 ID&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>融合。合并两个commit B和C，保留C的提交信息&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pick c50221f commit B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s 73deeed commit C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s, squash &amp;lt;提交&amp;gt; = 使用提交，但融合到前一个提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># f, fixup &amp;lt;提交&amp;gt; = 类似于 &amp;#34;squash&amp;#34;，但丢弃提交说明日志&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>提交 C 的命令改为 &lt;code>s（squash）&lt;/code> 会将其融合到（上方的）前一个提交 B。&lt;/p>
+&lt;p>说到融合会有两个选项， &lt;code>s（squash）&lt;/code> 或者 &lt;code>f（fixup）&lt;/code> 。两个命令的区别为是否保留 提交信息。f会丢弃提交说明日志，s会保留。&lt;/p>
+&lt;ul>
+&lt;li>删除。删除提交D&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">d d9623b0 commit D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># d, drop &amp;lt;提交&amp;gt; = 删除提交&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>移动提交 E 到提交 F 之后并修改其提交信息&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pick 74199ce commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">r e7c7111 commit E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># r, reword &amp;lt;提交&amp;gt; = 使用提交，但修改提交说明&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在提交 F 中加入一个新的文件更改&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">e 74199ce commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># e, edit &amp;lt;提交&amp;gt; = 使用提交，进入 shell 以便进行提交修补&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="rebase-onto到其他分支">rebase onto到其他分支&lt;/h3>
+&lt;p>我们可以通过 &lt;code>rebase&lt;/code> 对两个分支进行对比，取出相应的修改，然后应用到另一个分支上。例如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl"> F---G patch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> D---E feature
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A---B---C master
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>假设我们基于 &lt;code>feature&lt;/code> 分支的提交 D 创建了分支 &lt;code>patch&lt;/code>，并且新增了提交 F、G，现在我们想将 &lt;code>patch&lt;/code> 所做的更改合并到 &lt;code>master&lt;/code> 并发布，但暂时还不想合并 &lt;code>feature&lt;/code> ，这种情况下可以使用 &lt;code>rebase&lt;/code> 的 &lt;code>--onto &lt;/code> 选项：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 确保你在path分支上&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout patch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 注意onto后面，patch是自feature分支出来的，feature是自master分支出来的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git rebase —onto master feature patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上操作将取出 &lt;code>patch&lt;/code> 分支，对比它基于 &lt;code>feature&lt;/code> 所做的更改， 然后把这些更改在 &lt;code>master&lt;/code> 分支上重新应用，让 &lt;code>patch&lt;/code> 看起来就像直接基于 &lt;code>master&lt;/code> 进行更改一样。执行后的 &lt;code>patch&lt;/code> 如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">A---B---C---F&lt;span class="s1">&amp;#39;---G&amp;#39;&lt;/span> patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>现在patch上已经获取了master上最新修改的东西了， 那么反过来master就可以放心大胆的merge patch分支了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">git checkout master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git merge patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>小结：什么时候需要rebase -onto呢？中间的有很多提交而且还暂时用不上的时候。 比如重构的过程，比如被打断去做别的功能分支又需要快速发版的时候。&lt;/p>
+&lt;h3 id="常用git-pull---rebase">常用git pull --rebase&lt;/h3>
+&lt;p>多人协同开发在一个feature有时是不可避开的事情，当你想要push却出现了reject的情况，很好理解。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">! &lt;span class="o">[&lt;/span>rejected&lt;span class="o">]&lt;/span> feature -&amp;gt; feature &lt;span class="o">(&lt;/span>fetch first&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">error: failed to push some refs to &lt;span class="s1">&amp;#39;******.git&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: Updates were rejected because the remote contains work that you &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: not have locally. This is usually caused by another repository pushing
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: to the same ref. You may want to first integrate the remote changes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: &lt;span class="o">(&lt;/span>e.g., &lt;span class="s1">&amp;#39;git pull ...&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> before pushing again.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: See the &lt;span class="s1">&amp;#39;Note about fast-forwards&amp;#39;&lt;/span> in &lt;span class="s1">&amp;#39;git push --help&amp;#39;&lt;/span> &lt;span class="k">for&lt;/span> details.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>比如有两个人都是从master 分支克隆到本地，然后分别开发。master 本身有一个指针 HEAD 指向最后一次 commit 记录 commit-0 。A 先完成一个功能，并 push 到仓库，这次 commit 记为 commit-A，这也就是一次 &lt;code>fast-forward&lt;/code> 更新，此时仓库的 master 分支的 HEAD 指针就指向了 commit-A。接下来 B 也完成了一个功能，要向仓库 push commit-B，如果没有做额外操作，肯定会出现上面的错误。&lt;/p>
+&lt;p>我们知道&lt;code>git pull&lt;/code>相当于&lt;code>git fetch + git merge&lt;/code>操作，如果你此时按照提示进行&lt;code>git pull&lt;/code>操作，那么有两种可能：无冲突情况下的merge，多了一次commit；有冲突情况下的merge，当然也是注定多了一次commit。&lt;/p>
+&lt;p>回到push碰到reject的时候， 如果不小心git pull了， 那么最好&lt;code>git merge --abort&lt;/code>。&lt;/p>
+&lt;p>不过此时最好的办法是&lt;code>git rebase --pull&lt;/code>。&lt;/p>
+&lt;p>注意事项，git rebase --rebase 比如保持本地目录干净。即不能存在状态时modify的文件，untracked是没有关系的。&lt;/p></description><category domain="https://tigbox.github.io/categories/git/">git</category><category domain="https://tigbox.github.io/tags/git/">git</category></item><item><title>Golang内存管理</title><link>https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link><guid isPermaLink="true">https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid><pubDate>Wed, 14 Dec 2022 10:52:50 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>提到内存管理，第一反应就是不是类似于C语言中的malloc和free进行自主的内存分配和回收，而golang是统统交给runtime，随着初始化对象、修改值、update而变化。为什么不交给开发者自行管理呢？官方给的解释是「为了更好的进行内存使用」，比如内存池，预分配等。其实也好理解，拿做饭料理来说，内存是比较高级的食材，交给普通人大概就给浪费掉了。&lt;/p>
 &lt;h3 id="名称解读">名称解读&lt;/h3>
 &lt;ul>
-&lt;li>线程缓存=独立内存池=mcache，每个线程thread会自己维护自己的独立内存池，这部分在栈空间上。&lt;/li>
-&lt;li>中心缓存=全局内存池=mcentral，这部分在栈空间上。&lt;/li>
+&lt;li>线程缓存=独立内存池=mcache，每个线程thread会自己维护自己的独立内存池，在栈空间上。&lt;/li>
+&lt;li>中心缓存=全局内存池=mcentral，在栈空间上。&lt;/li>
 &lt;li>堆=页堆=mheap&lt;/li>
-&lt;li>拍平的最小内存管理组件是mspan&lt;/li>
+&lt;li>拍平后最细粒度的内存管理组件是mspan&lt;/li>
 &lt;/ul>
 &lt;table>
 &lt;thead>
@@ -41,12 +370,139 @@
 &lt;li>如果mheap中没有可用的mspan，则向操作系统申请一系列新的页（最小 1MB）&lt;/li>
 &lt;/ul>
 &lt;h2 id="内存逃逸">内存逃逸&lt;/h2>
-&lt;p>想象一下重力，内存分配的空间从&amp;quot;栈&amp;quot;上逃逸到&amp;quot;堆&amp;quot;上的现象就称为内存逃逸。&lt;/p>
+&lt;p>想象一下重力，在“重力”的作用下，内存分配的空间从&amp;quot;栈&amp;quot;上逃逸到&amp;quot;堆&amp;quot;上的现象就称为内存逃逸。&lt;/p>
 &lt;ul>
 &lt;li>在栈上分配的地址，一般由系统申请和释放，不会有额外性能的开销，比如函数的入参、局部变量、返回值等。&lt;/li>
 &lt;li>在堆上分配的内存，如果要回收掉，需要进行 GC，那么GC 一定会带来额外的性能开销。&lt;/li>
 &lt;/ul>
 &lt;p>编程语言不断优化GC算法，主要目的都是为了减少 GC带来的额外性能开销，变量一旦逃逸会导致性能开销变大。可以说GC优化就是为了提前防止内存逃逸。&lt;/p>
+&lt;h2 id="逃逸会造成什么后果">逃逸会造成什么后果&lt;/h2>
+&lt;ol>
+&lt;li>堆空间内存分配过大，虚拟内存最终OOM&lt;/li>
+&lt;li>GC处理堆空间耗时过长，性能下降&lt;/li>
+&lt;/ol>
+&lt;p>随便搞了一个逃逸的和不逃逸的进行比较。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;runtime&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;testing&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">BenchmarkEscape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GC&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ResetTimer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="kt">uint64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">m&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">MemStats&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReadMemStats&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">m&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;escape &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">max&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;kb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">BenchmarkNoescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GC&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ResetTimer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="kt">uint64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">m&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">MemStats&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;noescape &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">max&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;kb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">$ go &lt;span class="nb">test&lt;/span> -v -bench&lt;span class="o">=&lt;/span>. -run&lt;span class="o">=&lt;/span>none
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">goos: darwin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">goarch: amd64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg: github.com/tigbox/keepcode/escapePointer1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cpu: Intel&lt;span class="o">(&lt;/span>R&lt;span class="o">)&lt;/span> Core&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> i5-5257U CPU @ 2.70GHz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkEscape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">escape &lt;span class="m">98&lt;/span> kb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkEscape-4 &lt;span class="m">36&lt;/span> &lt;span class="m">34188884&lt;/span> ns/op
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkNoescape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">noescape &lt;span class="m">0&lt;/span> kb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkNoescape-4 &lt;span class="m">1731577&lt;/span> 654.9 ns/op
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到一个简单的int变量因为内存逃逸，堆内存空间在多次调用的情况下被放大到98K，并且性能相比于非逃逸的情况也差了很多。&lt;/p>
 &lt;h3 id="逃逸机制">逃逸机制&lt;/h3>
 &lt;ol>
 &lt;li>如果函数外部没有引用，则优先放到栈中；&lt;/li>
@@ -54,10 +510,68 @@
 &lt;li>如果栈上放不下，则必定放到堆上;&lt;/li>
 &lt;/ol>
 &lt;h3 id="逃逸发生的几种情况">逃逸发生的几种情况&lt;/h3>
-&lt;p>逃逸分析也就是由编译器决定哪些变量放在栈，哪些放在堆中，通过编译参数&lt;code>-gcflag=-m&lt;/code>可以查看编译过程中的逃逸分析。&lt;/p>
+&lt;p>逃逸分析也就是由编译器决定哪些变量放在栈，哪些放在堆中，通过编译参数&lt;code>-gcflags=-m&lt;/code>可以查看编译过程中的逃逸分析，需要额外注意的是最好取消内联优化。命令如下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">在编译阶段进行逃逸分析
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go build -gcflags&lt;span class="o">=&lt;/span>-m main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">执行的时候顺便进行逃逸分析
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-m 表示&lt;code>print optimization decisions&lt;/code> 打印逃逸分析的信息。&lt;/p>
+&lt;p>-l 表示 &lt;code>关闭内联优化&lt;/code>，这里如果内联的话逃逸分析就很不准确。 关于内联其实很好理解，当前goroutine的thread是独占mcache的，对应单独的栈。栈又包含多个栈帧，栈帧就是函数调用时在栈上为函数所分配的区域。其实，函数调用是存在一些固定开销，比如维护帧指针寄存器BP、栈溢出检测。对于一些代码比较少的函数，编译器倾向于在编译期展开从而消除函数调用， 这就是内联优化。&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>指针逃逸&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:6: moved to heap: a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>**函数返回值为局部变量的指针，函数虽然退出了，但是因为指针变量返回给上层调用了，指针指向的内存不能随着函数结束而回收，因此只能分配在堆上。**属于逃逸机制中的2，函数外部存在引用，则必定放到堆中。&lt;/p>
+&lt;p>同样的如果在函数内部进行对象的new创建，然后将这个变量直接返回，也是上面的情况一样。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -74,22 +588,62 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;p>./main.go:4:6: moved to heap: a&lt;/p>
-&lt;p>&lt;strong>函数返回值为局部变量的指针，函数虽然退出了，但是因为指针的存在，指向的内存不能随着函数结束而回收，因此只能分配在堆上。&lt;/strong>&lt;/p>
-&lt;p>这种代码在业务开发中非常常见，所以怎么规避呢？&lt;/p>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl"> go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:10: new&lt;span class="o">(&lt;/span>int&lt;span class="o">)&lt;/span> escapes to heap
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这种代码在业务开发中非常常见，所以怎么规避呢？经常用的json mashal unmashal就是一个很好的例子。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
@@ -97,25 +651,19 @@
 &lt;/span>&lt;span class="lnt">4
 &lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(){&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:17:15: a does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:12:10: new&lt;span class="o">(&lt;/span>int&lt;span class="o">)&lt;/span> does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:14:13: ... argument does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:14:14: *a escapes to heap
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
 &lt;li>
-&lt;p>栈空间不足&lt;/p>
+&lt;p>栈空间不足（内存分配大于32kb）&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -154,15 +702,9 @@
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>-m main.go
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:3:6: can inline escape
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:10:6: can inline main
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:11:8: inlining call to escape
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:11: make&lt;span class="o">([]&lt;/span>int, 0, 8193&lt;span class="o">)&lt;/span> escapes to heap
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:11:8: make&lt;span class="o">([]&lt;/span>int, 0, 8193&lt;span class="o">)&lt;/span> escapes to heap
@@ -203,7 +745,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>编译期间无法确定slice的长度，这种情况为了保证内存的安全，编译器也会触发逃逸，在堆上进行分配内存。直接&lt;code>s := make([]int, 10)&lt;/code>则不会发生逃逸。&lt;/p>
+&lt;/div>&lt;p>编译期间无法确定slice的长度，这种情况为了保证内存的安全，编译器也会触发逃逸。&lt;/p>
+&lt;p>如何进行规避呢？直接&lt;code>s := make([]int, 10)&lt;/code>则不会发生逃逸。不过实际开发过程中一般很难确定capbility的常量值。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>动态类型&lt;/p>
@@ -2551,7 +3094,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="霍尔分区">霍尔分区&lt;/h3>
-&lt;p>第二种分区方法叫「Hoare-Partition」是比较好理解的， 有点类似于双向奔赴，判断交换。从右边开始遍历，碰到比支点大的就一直向左移动；如果碰到比支点小的就停住。从做左边开始遍历，碰到比支点小的就一直向右移动，如果碰到比支点小的就停住。 交换左右的值。&lt;/p>
+&lt;p>第二种分区方法叫「Hoare-Partition」对我来说是比较好理解的， 有点类似于双向奔赴，判断交换。从右边开始遍历，碰到比支点大的就一直向左移动；如果碰到比支点小的就停住。从做左边开始遍历，碰到比支点小的就一直向右移动，如果碰到比支点小的就停住。 交换左右的值。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -3151,6 +3694,129 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// self heap function
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">sorted&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="用官方推荐的堆排序的方法">用官方推荐的堆排序的方法&lt;/h2>
+&lt;p>具体的实现package是container/heap, 需要自己实现public的5个方法， 3个值类型的，2个指针类型的，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Interface&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sort&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Interface&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="nx">any&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// add x as element Len()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">Pop&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">any&lt;/span> &lt;span class="c1">// remove and return element Len() - 1.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>比如实现类如下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">List&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Swap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Less&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{})&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">.(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Pop&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">old&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">length&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">old&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">old&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">old&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="nx">length&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">result&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>具体测试的代码如下，&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>heap.Init初始化堆&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当堆长度小于指定长度或者当前元素比top元素还大的时候才会push，别忘记要随着push随着pop&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>重点：&lt;code>如果要取第K大的数， 需要用到小顶堆&lt;/code>，因为top（）是当前最小的，比它大才push进去。&lt;/p>
+&lt;p>&lt;code>如果要取第K小的数，需要用到大顶堆&lt;/code>，因为top（）是当前最大的，比它小才push进去。&lt;/p>
+&lt;p>既然这样，就可以用优化的思路，比如从一万个数中找到top 1000大的，那么就用到小顶堆。从一万个数中找到top 9000大的，就是找到top 1000小的，那么就用大顶堆。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">list&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">k&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">arr&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">k&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Top&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">k&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description><category domain="https://tigbox.github.io/categories/%E6%8E%92%E5%BA%8F/">排序</category><category domain="https://tigbox.github.io/tags/%E6%8E%92%E5%BA%8F/">排序</category></item><item><title>完全二叉树</title><link>https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</guid><pubDate>Wed, 16 Nov 2022 23:17:05 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>完全二叉树的定义这里就不说了，问一下google就好。&lt;/p>

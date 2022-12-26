@@ -1,10 +1,339 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-12-14T13:19:18+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.108.0">Hugo</generator><entry><title type="text">Golang内存管理</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/><id>https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-14T10:52:50+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">提到golang内存管理，第一反应就是不是类似于malloc和free进行自主的内存……</summary><content type="html">&lt;p>提到golang内存管理，第一反应就是不是类似于malloc和free进行自主的内存分配和回收，而是统统交给runtime随着你初始化对象、修改值、重改而变化。为什么会这样设计呢？官方给的解释是「为了更好的进行内存使用」，比如内存池，预分配。其实也好理解，类比于做饭料理，内存是比较高级的食材，交给普通人大概就给浪费掉了。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">tigbox</title><subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle><updated>2022-12-26T16:21:10+00:00</updated><id>https://tigbox.github.io/</id><link rel="alternate" type="text/html" href="https://tigbox.github.io/"/><link rel="self" type="application/atom+xml" href="https://tigbox.github.io/atom.xml"/><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.108.0">Hugo</generator><entry><title type="text">Git</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/git/"/><id>https://tigbox.github.io/posts/git/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-16T20:01:53+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">git的分层存储 远端仓库remote repository 本地仓库remote repository(隶属……</summary><content type="html">&lt;h2 id="git的分层存储">git的分层存储&lt;/h2>
+&lt;ul>
+&lt;li>远端仓库remote repository&lt;/li>
+&lt;li>本地仓库remote repository(隶属于版本库)&lt;/li>
+&lt;li>暂存区index/stage（隶属于版本库）&lt;/li>
+&lt;li>工作区workspace&lt;/li>
+&lt;/ul>
+&lt;p>上层相对稳定，下层相对灵活。越在下层越容易改动，越在上层改动成本越大。&lt;/p>
+&lt;h2 id="如何理解git">如何理解git&lt;/h2>
+&lt;p>要了解和熟悉git，简单的说就是两个要点&lt;/p>
+&lt;ul>
+&lt;li>知道当前在哪里&lt;/li>
+&lt;li>知道要到哪里去&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://mermaid.live/edit#pako:eNo9kTFvgkAYhv8K-SZNENFTQAYTlbFd2q3icDlOIQJH4Ei14tK13bo0DWuTDm3SrYlN0z8jtj-jh0i_6fLk-d4veW8DhDkUTFjEOHKlsws7lMSMpo2YBoxTKaYRSzzO4vXvd_7zcrf_fCh2D82Z1Gq1hhnxWUjbc8qJm0njcqm2D_lrkb_X9im1XDrNUMqi1Pczq3HN4mUSYUKLj-f9V17c75qVPpYqj7iULFnKM-ufK0oVkLjZqIJWDbHjZJPG1AsdumonHC_o4em2eHsUubNT8KR2CQsCj2djkCGgcYA9RzSxKSUbuEsDaoMpng6OlzbY4VZ4OOXsch0SMHmcUhnSyMGcWh4WBQZgzrGfCBrhEMwNrMDUkKJrqmoMVAPp_f4AaTKswex0kdIRUDdQr4uQwFsZbhgTEaqiI03TUUfXuoahqT1dBuqUpZ5XX0VYOPcWcLxydVw5Xt3-AWhWnNE">&lt;img src="https://mermaid.ink/img/pako:eNo9kTFvgkAYhv8K-SZNENFTQAYTlbFd2q3icDlOIQJH4Ei14tK13bo0DWuTDm3SrYlN0z8jtj-jh0i_6fLk-d4veW8DhDkUTFjEOHKlsws7lMSMpo2YBoxTKaYRSzzO4vXvd_7zcrf_fCh2D82Z1Gq1hhnxWUjbc8qJm0njcqm2D_lrkb_X9im1XDrNUMqi1Pczq3HN4mUSYUKLj-f9V17c75qVPpYqj7iULFnKM-ufK0oVkLjZqIJWDbHjZJPG1AsdumonHC_o4em2eHsUubNT8KR2CQsCj2djkCGgcYA9RzSxKSUbuEsDaoMpng6OlzbY4VZ4OOXsch0SMHmcUhnSyMGcWh4WBQZgzrGfCBrhEMwNrMDUkKJrqmoMVAPp_f4AaTKswex0kdIRUDdQr4uQwFsZbhgTEaqiI03TUUfXuoahqT1dBuqUpZ5XX0VYOPcWcLxydVw5Xt3-AWhWnNE?type=png" alt="">&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>最开始从git clone拷贝形成本地仓库，如果本地仓库已经存在需要获取远端的最新状态的话就需要执行git fetch。&lt;/li>
+&lt;li>经常性的做工作区分支的切换、创建，那就需要git checkout命令。&lt;/li>
+&lt;li>涉及到写入的流程的话， 就是经典的git add、git commit、git push三步走。&lt;/li>
+&lt;/ol>
+&lt;h2 id="经常会碰到的放弃">经常会碰到的放弃&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>changeset还没有add，本地工作区放弃刚才做的改动。&lt;/p>
+&lt;p>&lt;code>只在本地工作区&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 本地所有修改都不要了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 本地修改中只有一个文件需要回滚&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout -- fileName
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>代码已经在暂存区（changeset已被git add但是还没有git commit）&lt;/p>
+&lt;p>&lt;code>在本地工作区和暂存区&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 放弃所有修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset HEAD
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 放弃一个文件的修改&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset HEAD fileName
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此时，本地的修改不会消失。只是相当于changeset从「暂存区」退回到「本地工作区」。&lt;/p>
+&lt;p>如果你想继续放弃、回滚本地修改，那么就用上面介绍的&lt;code>git checkout&lt;/code>命令；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>代码已经在本地仓库（changeset已被commit但是还没有push）&lt;/p>
+&lt;p>&lt;code>在本地工作区和暂存区和本地仓库&lt;/code>&lt;/p>
+&lt;p>&lt;strong>hard 模式&lt;/strong>，hard意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库==暂存区==本地工作区&lt;/li>
+&lt;li>单链表的最后一个节点，即如果你进行git log操作，本地仓库是看不到后面的新的commitID的&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>soft模式，意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库!=暂存区=本地工作区，即你之前的changeset并没有丢失，而是放在暂存区，即git add后的效果，是绿色的。&lt;/li>
+&lt;li>本地仓库并非以指定的commitID作为最后一个节点， 你依旧可以看到它之后的。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --soft HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --soft commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>mixed模式&lt;/strong>（不常用），mixed模式意味着&lt;/p>
+&lt;ul>
+&lt;li>操作之后，本地仓库==暂存区!=本地工作区，即你之前的changeset并没有丢失，而是放在本地工作区，看git status是依旧可以git add的，是红色的。&lt;/li>
+&lt;li>本地仓库并非以指定的commitID作为最后一个节点， 你依旧可以看到它之后的。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前最新的版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ^表示闭区间的意思&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --mixed HEAD^
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 回滚到之前指定的某个版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --mixed commitID
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>小结&lt;/p>
+&lt;ul>
+&lt;li>checkout放弃本地修改&lt;/li>
+&lt;li>reset+checkout 放弃暂存区改动&lt;/li>
+&lt;li>reset --hard放弃已经提交到本地仓库的改动&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://mermaid.live/edit#pako:eNpl0L1uwkAMAOBXOXkCKeEBMlSCMpalbPQYrJwhEeQuujgDIizMbCwIZWVrpW5IIN6G4zk4ftqh9eSfb7A9h9goggjGFvNEvL1LLXy0P9x-dz7VbnUYirDVCl-qccoiTiiemJIr0X64TuOyXbqvjXdNET6VpYK4eorXxqX-dPX3-bh2h_Uf5KsErfq1_6aFGXHVkRoCyMhmmCq_6vymJXBCGUmIfKrQTiRIvfAOSzb9mY4hYltSAGWukKmbor8wg2iE08J3SaVsbO9x-_0FAeSoB8b8mMUVothmmA">&lt;img src="https://mermaid.ink/img/pako:eNpl0L1uwkAMAOBXOXkCKeEBMlSCMpalbPQYrJwhEeQuujgDIizMbCwIZWVrpW5IIN6G4zk4ftqh9eSfb7A9h9goggjGFvNEvL1LLXy0P9x-dz7VbnUYirDVCl-qccoiTiiemJIr0X64TuOyXbqvjXdNET6VpYK4eorXxqX-dPX3-bh2h_Uf5KsErfq1_6aFGXHVkRoCyMhmmCq_6vymJXBCGUmIfKrQTiRIvfAOSzb9mY4hYltSAGWukKmbor8wg2iE08J3SaVsbO9x-_0FAeSoB8b8mMUVothmmA?type=png" alt="">&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="git-rebase">git rebase&lt;/h2>
+&lt;p>&lt;code>git rebase -i&lt;/code>，rebase操作对于码农来说应该不陌生的，这里不降基本概念和常规操作了，说一些非常规操作。&lt;/p>
+&lt;h3 id="在一个分支对多个commit进行操作">在一个分支对多个commit进行操作&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 命令:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># p, pick &amp;lt;提交&amp;gt; = 使用提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># r, reword &amp;lt;提交&amp;gt; = 使用提交，但修改提交说明&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># e, edit &amp;lt;提交&amp;gt; = 使用提交，进入 shell 以便进行提交修补&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s, squash &amp;lt;提交&amp;gt; = 使用提交，但融合到前一个提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># f, fixup &amp;lt;提交&amp;gt; = 类似于 &amp;#34;squash&amp;#34;，但丢弃提交说明日志&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># x, exec &amp;lt;命令&amp;gt; = 使用 shell 运行命令（此行剩余部分）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># b, break = 在此处停止（使用 &amp;#39;git rebase --continue&amp;#39; 继续变基）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># d, drop &amp;lt;提交&amp;gt; = 删除提交&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>假设我们在 &lt;code>feature&lt;/code> 分支有如下提交：提交的次序是A--&amp;gt;B--&amp;gt;C--&amp;gt;D--&amp;gt;E--&amp;gt;F&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">74199cebdd34d107bb67b6da5533a2e405f4c330 &lt;span class="o">(&lt;/span>HEAD -&amp;gt; feature&lt;span class="o">)&lt;/span> commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">e7c7111d807c1d5209b97a9c75b09da5cd2810d4 commit E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">d9623b0ef9d722b4a83d58a334e1ce85545ea524 commit D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">73deeedaa944ef459b17d42601677c2fcc4c4703 commit C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">c50221f93a39f3474ac59228d69732402556c93b commit B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ef1372522cdad136ce7e6dc3e02aab4d6ad73f79 commit A
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git rebase -i ef1372522cdad136ce7e6dc3e02aab4d6ad73f79 &lt;span class="c1"># 参数是提交 A 的 ID&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>融合。合并两个commit B和C，保留C的提交信息&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pick c50221f commit B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">s 73deeed commit C
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># s, squash &amp;lt;提交&amp;gt; = 使用提交，但融合到前一个提交&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># f, fixup &amp;lt;提交&amp;gt; = 类似于 &amp;#34;squash&amp;#34;，但丢弃提交说明日志&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>提交 C 的命令改为 &lt;code>s（squash）&lt;/code> 会将其融合到（上方的）前一个提交 B。&lt;/p>
+&lt;p>说到融合会有两个选项， &lt;code>s（squash）&lt;/code> 或者 &lt;code>f（fixup）&lt;/code> 。两个命令的区别为是否保留 提交信息。f会丢弃提交说明日志，s会保留。&lt;/p>
+&lt;ul>
+&lt;li>删除。删除提交D&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">d d9623b0 commit D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># d, drop &amp;lt;提交&amp;gt; = 删除提交&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>移动提交 E 到提交 F 之后并修改其提交信息&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pick 74199ce commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">r e7c7111 commit E
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># r, reword &amp;lt;提交&amp;gt; = 使用提交，但修改提交说明&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在提交 F 中加入一个新的文件更改&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">e 74199ce commit F
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># e, edit &amp;lt;提交&amp;gt; = 使用提交，进入 shell 以便进行提交修补&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="rebase-onto到其他分支">rebase onto到其他分支&lt;/h3>
+&lt;p>我们可以通过 &lt;code>rebase&lt;/code> 对两个分支进行对比，取出相应的修改，然后应用到另一个分支上。例如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl"> F---G patch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> D---E feature
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> /
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">A---B---C master
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>假设我们基于 &lt;code>feature&lt;/code> 分支的提交 D 创建了分支 &lt;code>patch&lt;/code>，并且新增了提交 F、G，现在我们想将 &lt;code>patch&lt;/code> 所做的更改合并到 &lt;code>master&lt;/code> 并发布，但暂时还不想合并 &lt;code>feature&lt;/code> ，这种情况下可以使用 &lt;code>rebase&lt;/code> 的 &lt;code>--onto &lt;/code> 选项：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 确保你在path分支上&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git checkout patch
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 注意onto后面，patch是自feature分支出来的，feature是自master分支出来的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git rebase —onto master feature patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上操作将取出 &lt;code>patch&lt;/code> 分支，对比它基于 &lt;code>feature&lt;/code> 所做的更改， 然后把这些更改在 &lt;code>master&lt;/code> 分支上重新应用，让 &lt;code>patch&lt;/code> 看起来就像直接基于 &lt;code>master&lt;/code> 进行更改一样。执行后的 &lt;code>patch&lt;/code> 如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">A---B---C---F&lt;span class="s1">&amp;#39;---G&amp;#39;&lt;/span> patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>现在patch上已经获取了master上最新修改的东西了， 那么反过来master就可以放心大胆的merge patch分支了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">git checkout master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git merge patch
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>小结：什么时候需要rebase -onto呢？中间的有很多提交而且还暂时用不上的时候。 比如重构的过程，比如被打断去做别的功能分支又需要快速发版的时候。&lt;/p>
+&lt;h3 id="常用git-pull---rebase">常用git pull --rebase&lt;/h3>
+&lt;p>多人协同开发在一个feature有时是不可避开的事情，当你想要push却出现了reject的情况，很好理解。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">! &lt;span class="o">[&lt;/span>rejected&lt;span class="o">]&lt;/span> feature -&amp;gt; feature &lt;span class="o">(&lt;/span>fetch first&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">error: failed to push some refs to &lt;span class="s1">&amp;#39;******.git&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: Updates were rejected because the remote contains work that you &lt;span class="k">do&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: not have locally. This is usually caused by another repository pushing
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: to the same ref. You may want to first integrate the remote changes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: &lt;span class="o">(&lt;/span>e.g., &lt;span class="s1">&amp;#39;git pull ...&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> before pushing again.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hint: See the &lt;span class="s1">&amp;#39;Note about fast-forwards&amp;#39;&lt;/span> in &lt;span class="s1">&amp;#39;git push --help&amp;#39;&lt;/span> &lt;span class="k">for&lt;/span> details.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>比如有两个人都是从master 分支克隆到本地，然后分别开发。master 本身有一个指针 HEAD 指向最后一次 commit 记录 commit-0 。A 先完成一个功能，并 push 到仓库，这次 commit 记为 commit-A，这也就是一次 &lt;code>fast-forward&lt;/code> 更新，此时仓库的 master 分支的 HEAD 指针就指向了 commit-A。接下来 B 也完成了一个功能，要向仓库 push commit-B，如果没有做额外操作，肯定会出现上面的错误。&lt;/p>
+&lt;p>我们知道&lt;code>git pull&lt;/code>相当于&lt;code>git fetch + git merge&lt;/code>操作，如果你此时按照提示进行&lt;code>git pull&lt;/code>操作，那么有两种可能：无冲突情况下的merge，多了一次commit；有冲突情况下的merge，当然也是注定多了一次commit。&lt;/p>
+&lt;p>回到push碰到reject的时候， 如果不小心git pull了， 那么最好&lt;code>git merge --abort&lt;/code>。&lt;/p>
+&lt;p>不过此时最好的办法是&lt;code>git rebase --pull&lt;/code>。&lt;/p>
+&lt;p>注意事项，git rebase --rebase 比如保持本地目录干净。即不能存在状态时modify的文件，untracked是没有关系的。&lt;/p></content><category scheme="https://tigbox.github.io/categories/git/" term="git" label="git"/><category scheme="https://tigbox.github.io/tags/git/" term="git" label="git"/></entry><entry><title type="text">Golang内存管理</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/><id>https://tigbox.github.io/posts/golang%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-14T10:52:50+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">提到内存管理，第一反应就是不是类似于C语言中的malloc和free进行自主的内存分……</summary><content type="html">&lt;p>提到内存管理，第一反应就是不是类似于C语言中的malloc和free进行自主的内存分配和回收，而golang是统统交给runtime，随着初始化对象、修改值、update而变化。为什么不交给开发者自行管理呢？官方给的解释是「为了更好的进行内存使用」，比如内存池，预分配等。其实也好理解，拿做饭料理来说，内存是比较高级的食材，交给普通人大概就给浪费掉了。&lt;/p>
 &lt;h3 id="名称解读">名称解读&lt;/h3>
 &lt;ul>
-&lt;li>线程缓存=独立内存池=mcache，每个线程thread会自己维护自己的独立内存池，这部分在栈空间上。&lt;/li>
-&lt;li>中心缓存=全局内存池=mcentral，这部分在栈空间上。&lt;/li>
+&lt;li>线程缓存=独立内存池=mcache，每个线程thread会自己维护自己的独立内存池，在栈空间上。&lt;/li>
+&lt;li>中心缓存=全局内存池=mcentral，在栈空间上。&lt;/li>
 &lt;li>堆=页堆=mheap&lt;/li>
-&lt;li>拍平的最小内存管理组件是mspan&lt;/li>
+&lt;li>拍平后最细粒度的内存管理组件是mspan&lt;/li>
 &lt;/ul>
 &lt;table>
 &lt;thead>
@@ -41,12 +370,139 @@
 &lt;li>如果mheap中没有可用的mspan，则向操作系统申请一系列新的页（最小 1MB）&lt;/li>
 &lt;/ul>
 &lt;h2 id="内存逃逸">内存逃逸&lt;/h2>
-&lt;p>想象一下重力，内存分配的空间从&amp;quot;栈&amp;quot;上逃逸到&amp;quot;堆&amp;quot;上的现象就称为内存逃逸。&lt;/p>
+&lt;p>想象一下重力，在“重力”的作用下，内存分配的空间从&amp;quot;栈&amp;quot;上逃逸到&amp;quot;堆&amp;quot;上的现象就称为内存逃逸。&lt;/p>
 &lt;ul>
 &lt;li>在栈上分配的地址，一般由系统申请和释放，不会有额外性能的开销，比如函数的入参、局部变量、返回值等。&lt;/li>
 &lt;li>在堆上分配的内存，如果要回收掉，需要进行 GC，那么GC 一定会带来额外的性能开销。&lt;/li>
 &lt;/ul>
 &lt;p>编程语言不断优化GC算法，主要目的都是为了减少 GC带来的额外性能开销，变量一旦逃逸会导致性能开销变大。可以说GC优化就是为了提前防止内存逃逸。&lt;/p>
+&lt;h2 id="逃逸会造成什么后果">逃逸会造成什么后果&lt;/h2>
+&lt;ol>
+&lt;li>堆空间内存分配过大，虚拟内存最终OOM&lt;/li>
+&lt;li>GC处理堆空间耗时过长，性能下降&lt;/li>
+&lt;/ol>
+&lt;p>随便搞了一个逃逸的和不逃逸的进行比较。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;runtime&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;testing&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">BenchmarkEscape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GC&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ResetTimer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="kt">uint64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">m&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">MemStats&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReadMemStats&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">m&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;escape &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">max&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;kb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">BenchmarkNoescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">B&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GC&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ResetTimer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="kt">uint64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">m&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">MemStats&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">N&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">j&lt;/span>&lt;span class="o">++&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">max&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Alloc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;noescape &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">max&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">1024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;kb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">$ go &lt;span class="nb">test&lt;/span> -v -bench&lt;span class="o">=&lt;/span>. -run&lt;span class="o">=&lt;/span>none
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">goos: darwin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">goarch: amd64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pkg: github.com/tigbox/keepcode/escapePointer1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cpu: Intel&lt;span class="o">(&lt;/span>R&lt;span class="o">)&lt;/span> Core&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> i5-5257U CPU @ 2.70GHz
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkEscape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">escape &lt;span class="m">98&lt;/span> kb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkEscape-4 &lt;span class="m">36&lt;/span> &lt;span class="m">34188884&lt;/span> ns/op
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkNoescape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">noescape &lt;span class="m">0&lt;/span> kb
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BenchmarkNoescape-4 &lt;span class="m">1731577&lt;/span> 654.9 ns/op
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到一个简单的int变量因为内存逃逸，堆内存空间在多次调用的情况下被放大到98K，并且性能相比于非逃逸的情况也差了很多。&lt;/p>
 &lt;h3 id="逃逸机制">逃逸机制&lt;/h3>
 &lt;ol>
 &lt;li>如果函数外部没有引用，则优先放到栈中；&lt;/li>
@@ -54,10 +510,68 @@
 &lt;li>如果栈上放不下，则必定放到堆上;&lt;/li>
 &lt;/ol>
 &lt;h3 id="逃逸发生的几种情况">逃逸发生的几种情况&lt;/h3>
-&lt;p>逃逸分析也就是由编译器决定哪些变量放在栈，哪些放在堆中，通过编译参数&lt;code>-gcflag=-m&lt;/code>可以查看编译过程中的逃逸分析。&lt;/p>
+&lt;p>逃逸分析也就是由编译器决定哪些变量放在栈，哪些放在堆中，通过编译参数&lt;code>-gcflags=-m&lt;/code>可以查看编译过程中的逃逸分析，需要额外注意的是最好取消内联优化。命令如下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">在编译阶段进行逃逸分析
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go build -gcflags&lt;span class="o">=&lt;/span>-m main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">执行的时候顺便进行逃逸分析
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">* go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>-m 表示&lt;code>print optimization decisions&lt;/code> 打印逃逸分析的信息。&lt;/p>
+&lt;p>-l 表示 &lt;code>关闭内联优化&lt;/code>，这里如果内联的话逃逸分析就很不准确。 关于内联其实很好理解，当前goroutine的thread是独占mcache的，对应单独的栈。栈又包含多个栈帧，栈帧就是函数调用时在栈上为函数所分配的区域。其实，函数调用是存在一些固定开销，比如维护帧指针寄存器BP、栈溢出检测。对于一些代码比较少的函数，编译器倾向于在编译期展开从而消除函数调用， 这就是内联优化。&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>指针逃逸&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:6: moved to heap: a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>**函数返回值为局部变量的指针，函数虽然退出了，但是因为指针变量返回给上层调用了，指针指向的内存不能随着函数结束而回收，因此只能分配在堆上。**属于逃逸机制中的2，函数外部存在引用，则必定放到堆中。&lt;/p>
+&lt;p>同样的如果在函数内部进行对象的new创建，然后将这个变量直接返回，也是上面的情况一样。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -74,22 +588,62 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">a&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape1&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">escape&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;p>./main.go:4:6: moved to heap: a&lt;/p>
-&lt;p>&lt;strong>函数返回值为局部变量的指针，函数虽然退出了，但是因为指针的存在，指向的内存不能随着函数结束而回收，因此只能分配在堆上。&lt;/strong>&lt;/p>
-&lt;p>这种代码在业务开发中非常常见，所以怎么规避呢？&lt;/p>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl"> go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:10: new&lt;span class="o">(&lt;/span>int&lt;span class="o">)&lt;/span> escapes to heap
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这种代码在业务开发中非常常见，所以怎么规避呢？经常用的json mashal unmashal就是一个很好的例子。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
@@ -97,25 +651,19 @@
 &lt;/span>&lt;span class="lnt">4
 &lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(){&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">noescape&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go run -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:17:15: a does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:12:10: new&lt;span class="o">(&lt;/span>int&lt;span class="o">)&lt;/span> does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:14:13: ... argument does not escape
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:14:14: *a escapes to heap
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
 &lt;li>
-&lt;p>栈空间不足&lt;/p>
+&lt;p>栈空间不足（内存分配大于32kb）&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -154,15 +702,9 @@
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>-m main.go
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># command-line-arguments&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:3:6: can inline escape
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:10:6: can inline main
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">go build -gcflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-m -l&amp;#34;&lt;/span> main.go
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:11:8: inlining call to escape
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:4:11: make&lt;span class="o">([]&lt;/span>int, 0, 8193&lt;span class="o">)&lt;/span> escapes to heap
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./main.go:11:8: make&lt;span class="o">([]&lt;/span>int, 0, 8193&lt;span class="o">)&lt;/span> escapes to heap
@@ -203,7 +745,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>编译期间无法确定slice的长度，这种情况为了保证内存的安全，编译器也会触发逃逸，在堆上进行分配内存。直接&lt;code>s := make([]int, 10)&lt;/code>则不会发生逃逸。&lt;/p>
+&lt;/div>&lt;p>编译期间无法确定slice的长度，这种情况为了保证内存的安全，编译器也会触发逃逸。&lt;/p>
+&lt;p>如何进行规避呢？直接&lt;code>s := make([]int, 10)&lt;/code>则不会发生逃逸。不过实际开发过程中一般很难确定capbility的常量值。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>动态类型&lt;/p>
@@ -282,7 +825,7 @@
 &lt;li>逃逸分析目的是决定内分配地址是栈还是堆&lt;/li>
 &lt;li>逃逸分析在编译阶段完成&lt;/li>
 &lt;/ol>
-&lt;p>因为无论变量的大小，只要是指针变量都会在堆上分配，所以对于小变量我们还是使用传值效率（而不是传指针）更高一点。&lt;/p></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Golang调度模型</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/"/><id>https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-13T20:57:53+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">背景知识 单进程 单机单进程的情况不需要调度，就一个进程，让它同步依次执行串行代码，你想……</summary><content type="html">&lt;h2 id="背景知识">背景知识&lt;/h2>
+&lt;p>因为无论变量的大小，只要是指针变量都会在堆上分配，所以对于小变量我们还是使用传值效率（而不是传指针）更高一点。&lt;/p></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Golang调度模型</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/"/><id>https://tigbox.github.io/posts/golang%E8%B0%83%E5%BA%A6%E6%A8%A1%E5%9E%8B/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-13T20:57:53+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">背景知识 单进程 单机单进程的情况不需要调度，就一个进程，让它同步依次执行串行代码，你想……</summary><content type="html">&lt;h2 id="背景知识">背景知识&lt;/h2>
 &lt;h3 id="单进程">单进程&lt;/h3>
 &lt;p>单机单进程的情况不需要调度，就一个进程，让它同步依次执行串行代码，你想调度也调度不了什么。&lt;/p>
 &lt;p>很明显，单进程的阻塞会带来CPU时间片的浪费，执行影响性能。&lt;/p>
@@ -326,7 +869,7 @@
 &lt;/ol>
 &lt;p>可以看出相较于GM模型， GPM模型其实是将临界资源抢占变成了多级队列管理从而提升了调度的并发性能。&lt;/p>
 &lt;h3 id="调度器的设计策略">调度器的设计策略&lt;/h3>
-&lt;p>未完待续......&lt;/p></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">延迟双删策略</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/"/><id>https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-08T21:22:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">延迟双删策略 为了保护持久层同时获得相对好的性能，往往针对一些场景我们会引入缓存。但是……</summary><content type="html">&lt;h1 id="延迟双删策略">延迟双删策略&lt;/h1>
+&lt;p>未完待续......&lt;/p></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">延迟双删策略</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/"/><id>https://tigbox.github.io/posts/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-08T21:22:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">延迟双删策略 为了保护持久层同时获得相对好的性能，往往针对一些场景我们会引入缓存。但是……</summary><content type="html">&lt;h1 id="延迟双删策略">延迟双删策略&lt;/h1>
 &lt;p>为了保护持久层同时获得相对好的性能，往往针对一些场景我们会引入缓存。但是分布式技术几乎没有一本万利的，当同样的一份数据存储在多个的地方的时候数据一致性就成了问题， 只能尽量的保证CP。&lt;/p>
 &lt;ul>
 &lt;li>经常修改的持久层数据，就不太适合做缓存了。 毕竟做缓存大部分场景是写少读多的场景。&lt;/li>
@@ -442,7 +985,7 @@
 &lt;li>问题的本质原因是跨不同的存储引擎，没有办法做到原子性引起的。&lt;/li>
 &lt;li>用延迟双删的策略，即事后删除+延迟删除缓存。能做到最终一致性，做不到严格一致性。&lt;/li>
 &lt;li>缓存如果能命中自然最好，如果不能命中也只是相对保底的情况，对于单条数据不命中缓存也是60分及格的。&lt;/li>
-&lt;/ul></content><category scheme="https://tigbox.github.io/categories/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/" term="延迟双删策略" label="延迟双删策略"/><category scheme="https://tigbox.github.io/categories/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" term="数据一致性" label="数据一致性"/><category scheme="https://tigbox.github.io/tags/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/" term="延迟双删策略" label="延迟双删策略"/><category scheme="https://tigbox.github.io/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" term="数据一致性" label="数据一致性"/></entry><entry><title type="text">Redis订阅发布</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/redis%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/"/><id>https://tigbox.github.io/posts/redis%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-08T13:37:36+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">redis的订阅发布 这是曾经接触过的一个项目，是多人协同设计工具，你可以想想成一个聊……</summary><content type="html">&lt;h1 id="redis的订阅发布">redis的订阅发布&lt;/h1>
+&lt;/ul></content><category scheme="https://tigbox.github.io/categories/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/" term="延迟双删策略" label="延迟双删策略"/><category scheme="https://tigbox.github.io/categories/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" term="数据一致性" label="数据一致性"/><category scheme="https://tigbox.github.io/tags/%E5%BB%B6%E8%BF%9F%E5%8F%8C%E5%88%A0%E7%AD%96%E7%95%A5/" term="延迟双删策略" label="延迟双删策略"/><category scheme="https://tigbox.github.io/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/" term="数据一致性" label="数据一致性"/></entry><entry><title type="text">Redis订阅发布</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/redis%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/"/><id>https://tigbox.github.io/posts/redis%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-08T13:37:36+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">redis的订阅发布 这是曾经接触过的一个项目，是多人协同设计工具，你可以想想成一个聊……</summary><content type="html">&lt;h1 id="redis的订阅发布">redis的订阅发布&lt;/h1>
 &lt;p>这是曾经接触过的一个项目，是多人协同设计工具，你可以想想成一个聊天室。当时的先人是利用redis 的pub/sub加上nodejs来完成的。 简单的过程如下。&lt;/p>
 &lt;ol>
 &lt;li>client1和服务建立长连接，程序订阅了redis的某个channel，具体是&lt;code>subscribe fileID123&lt;/code>&lt;/li>
@@ -475,7 +1018,7 @@
 &lt;p>服务配置的广播场景&lt;/p>
 &lt;p>如果你没有配置中心这样的组件，也缺失服务发现的机制， 那么用redis pub/sub简单实现配置监听还是可以的。&lt;/p>
 &lt;/li>
-&lt;/ul></content><category scheme="https://tigbox.github.io/categories/redis/" term="redis" label="redis"/><category scheme="https://tigbox.github.io/tags/redis/" term="redis" label="redis"/></entry><entry><title type="text">二分查找</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-07T21:46:57+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二分查找 普通的二分查找，自己手撕的。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 func binarySearch(arr []int,search int) int { left,right :=……</summary><content type="html">&lt;h3 id="二分查找">二分查找&lt;/h3>
+&lt;/ul></content><category scheme="https://tigbox.github.io/categories/redis/" term="redis" label="redis"/><category scheme="https://tigbox.github.io/tags/redis/" term="redis" label="redis"/></entry><entry><title type="text">二分查找</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-07T21:46:57+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二分查找 普通的二分查找，自己手撕的。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 func binarySearch(arr []int,search int) int { left,right :=……</summary><content type="html">&lt;h3 id="二分查找">二分查找&lt;/h3>
 &lt;p>普通的二分查找，自己手撕的。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -580,7 +1123,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" term="二分查找" label="二分查找"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" term="二分查找" label="二分查找"/></entry><entry><title type="text">分布式锁</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/><id>https://tigbox.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-12-06T13:49:56+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">提到分布式锁，一般人都会想到setnx 1 2 redisInstance.SetNX(key,requestID) redisInstance.Expire(key,timeout) 这里明显就存在着满足不了原子性的问题，……</summary><content type="html">&lt;p>提到分布式锁，一般人都会想到setnx&lt;/p>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" term="二分查找" label="二分查找"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" term="二分查找" label="二分查找"/></entry><entry><title type="text">分布式锁</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/><id>https://tigbox.github.io/posts/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-12-06T13:49:56+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">提到分布式锁，一般人都会想到setnx 1 2 redisInstance.SetNX(key,requestID) redisInstance.Expire(key,timeout) 这里明显就存在着满足不了原子性的问题，……</summary><content type="html">&lt;p>提到分布式锁，一般人都会想到setnx&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -610,7 +1153,7 @@
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" term="分布式锁" label="分布式锁"/><category scheme="https://tigbox.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" term="分布式锁" label="分布式锁"/></entry><entry><title type="text">二叉树遍历</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-30T12:45:20+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">今天分别用递归和非递归的方式去实现了简单的中序遍历，但是用非递归的时候居然卡壳了。还……</summary><content type="html">&lt;p>今天分别用递归和非递归的方式去实现了简单的中序遍历，但是用非递归的时候居然卡壳了。还是功力未到啊，需要加深理解。&lt;/p>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" term="分布式锁" label="分布式锁"/><category scheme="https://tigbox.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" term="分布式锁" label="分布式锁"/></entry><entry><title type="text">二叉树遍历</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-30T12:45:20+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">今天分别用递归和非递归的方式去实现了简单的中序遍历，但是用非递归的时候居然卡壳了。还……</summary><content type="html">&lt;p>今天分别用递归和非递归的方式去实现了简单的中序遍历，但是用非递归的时候居然卡壳了。还是功力未到啊，需要加深理解。&lt;/p>
 &lt;h2 id="中序遍历递归">中序遍历递归&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -750,7 +1293,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">数据库持久化横向比较</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/"/><id>https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-28T22:02:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">redis的持久化 rdb是快照备份（全量备份） rdb是把内存中的数据以快照集的方式写……</summary><content type="html">&lt;h1 id="redis的持久化">redis的持久化&lt;/h1>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">数据库持久化横向比较</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/"/><id>https://tigbox.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%8C%81%E4%B9%85%E5%8C%96%E6%A8%AA%E5%90%91%E6%AF%94%E8%BE%83/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-28T22:02:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">redis的持久化 rdb是快照备份（全量备份） rdb是把内存中的数据以快照集的方式写……</summary><content type="html">&lt;h1 id="redis的持久化">redis的持久化&lt;/h1>
 &lt;h2 id="rdb是快照备份全量备份">rdb是快照备份（全量备份）&lt;/h2>
 &lt;p>rdb是把内存中的数据以快照集的方式写入磁盘。&lt;/p>
 &lt;p>rdb(redis database)是redis默认的持久化方式，在redis config文件中，你可以指定一定的时间周期和操作次数，但凡有一种阈值撞线了，都会执行rdb的备份，生成dump.rdb文件。当redis重启的时候通过加载dump.rdb来回复数据。&lt;/p>
@@ -840,7 +1383,7 @@
 &lt;/ul>
 &lt;p>存量备份： &lt;code>rdb&lt;/code>&lt;/p>
 &lt;p>归档日志：&lt;code>aof&lt;/code>、&lt;code>oplog&lt;/code>、&lt;code>binlog&lt;/code>&lt;/p>
-&lt;p>异常宕机恢复日志：&lt;code>journal&lt;/code>、&lt;code>redolog&lt;/code> 这两个东西都是物理日志并且指定了buffer长度。&lt;/p></content><category scheme="https://tigbox.github.io/categories/rdb-aof-oplog-binlog/" term="rdb aof oplog binlog" label="rdb aof oplog binlog"/><category scheme="https://tigbox.github.io/tags/rdb-aof-oplog-binlog/" term="rdb aof oplog binlog" label="rdb aof oplog binlog"/></entry><entry><title type="text">卡特兰数</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/"/><id>https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-26T19:31:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">卡特兰数是一个应用非常广的数列。 [1,1,2,5,14,,42,132,429,14……</summary><content type="html">&lt;p>卡特兰数是一个应用非常广的数列。&lt;/p>
+&lt;p>异常宕机恢复日志：&lt;code>journal&lt;/code>、&lt;code>redolog&lt;/code> 这两个东西都是物理日志并且指定了buffer长度。&lt;/p></content><category scheme="https://tigbox.github.io/categories/rdb-aof-oplog-binlog/" term="rdb aof oplog binlog" label="rdb aof oplog binlog"/><category scheme="https://tigbox.github.io/tags/rdb-aof-oplog-binlog/" term="rdb aof oplog binlog" label="rdb aof oplog binlog"/></entry><entry><title type="text">卡特兰数</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/"/><id>https://tigbox.github.io/posts/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-26T19:31:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">卡特兰数是一个应用非常广的数列。 [1,1,2,5,14,,42,132,429,14……</summary><content type="html">&lt;p>卡特兰数是一个应用非常广的数列。&lt;/p>
 &lt;p>[1,1,2,5,14,,42,132,429,1430,4862]至于证明的过程就放在以后了。&lt;/p>
 &lt;p>用coding的方式求卡特兰数如下&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -925,7 +1468,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" term="卡特兰数" label="卡特兰数"/><category scheme="https://tigbox.github.io/tags/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" term="卡特兰数" label="卡特兰数"/></entry><entry><title type="text">迭代二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E8%BF%AD%E4%BB%A3%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E8%BF%AD%E4%BB%A3%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-22T19:01:13+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">求叶子节点数字之和 这是leetcode的第129题。主要比较两种迭代的方式，两种都要……</summary><content type="html">&lt;h2 id="求叶子节点数字之和">求叶子节点数字之和&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" term="卡特兰数" label="卡特兰数"/><category scheme="https://tigbox.github.io/tags/%E5%8D%A1%E7%89%B9%E5%85%B0%E6%95%B0/" term="卡特兰数" label="卡特兰数"/></entry><entry><title type="text">迭代二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E8%BF%AD%E4%BB%A3%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E8%BF%AD%E4%BB%A3%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-22T19:01:13+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">求叶子节点数字之和 这是leetcode的第129题。主要比较两种迭代的方式，两种都要……</summary><content type="html">&lt;h2 id="求叶子节点数字之和">求叶子节点数字之和&lt;/h2>
 &lt;p>这是leetcode的第129题。主要比较两种迭代的方式，两种都要熟悉才可以。&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>func(node *TreeNode,last int)&lt;/code>&lt;/li>
@@ -1015,7 +1558,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">数组</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%95%B0%E7%BB%84/"/><id>https://tigbox.github.io/posts/%E6%95%B0%E7%BB%84/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-22T11:13:30+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">追加元素 追加到末尾用append(arr,value) 。如果想放在原数组的前面就调转……</summary><content type="html">&lt;h2 id="追加元素">追加元素&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">数组</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%95%B0%E7%BB%84/"/><id>https://tigbox.github.io/posts/%E6%95%B0%E7%BB%84/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-22T11:13:30+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">追加元素 追加到末尾用append(arr,value) 。如果想放在原数组的前面就调转……</summary><content type="html">&lt;h2 id="追加元素">追加元素&lt;/h2>
 &lt;p>追加到末尾用&lt;code>append(arr,value) &lt;/code>。如果想放在原数组的前面就调转过来&lt;code>append([]int{value},arr...)&lt;/code>&lt;/p>
 &lt;p>后者的性能堪忧， 比前者至少差了一个量级。毕竟需要将单个元素组成切片，将原有切片进行遍历&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1537,7 +2080,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%95%B0%E7%BB%84/" term="数组" label="数组"/><category scheme="https://tigbox.github.io/tags/%E6%95%B0%E7%BB%84/" term="数组" label="数组"/></entry><entry><title type="text">排列组合</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-20T22:25:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">排列组合 经典的三数之和 从中得到一些经验是如何跳过当前两项值相等的情况 1 2 3 4 5 6 7 8……</summary><content type="html">&lt;h2 id="排列组合">排列组合&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%95%B0%E7%BB%84/" term="数组" label="数组"/><category scheme="https://tigbox.github.io/tags/%E6%95%B0%E7%BB%84/" term="数组" label="数组"/></entry><entry><title type="text">排列组合</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-20T22:25:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">排列组合 经典的三数之和 从中得到一些经验是如何跳过当前两项值相等的情况 1 2 3 4 5 6 7 8……</summary><content type="html">&lt;h2 id="排列组合">排列组合&lt;/h2>
 &lt;p>经典的三数之和&lt;/p>
 &lt;p>从中得到一些经验是如何跳过当前两项值相等的情况&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1725,7 +2268,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" term="排列组合" label="排列组合"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" term="排列组合" label="排列组合"/></entry><entry><title type="text">LRU</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/lru/"/><id>https://tigbox.github.io/posts/lru/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-20T21:36:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">LRU 定义双向链表 1 2 3 4 5 6 7 8 9 10 11 type LinkNode struct { key,value int prev,next *LinkNode } func initLinkNode(key,value int) *LinkNode{ return &amp;amp;LinkNode{ key:key, value:value, } } 定义LRU……</summary><content type="html">&lt;h2 id="lru">LRU&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" term="排列组合" label="排列组合"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" term="排列组合" label="排列组合"/></entry><entry><title type="text">LRU</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/lru/"/><id>https://tigbox.github.io/posts/lru/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-20T21:36:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">LRU 定义双向链表 1 2 3 4 5 6 7 8 9 10 11 type LinkNode struct { key,value int prev,next *LinkNode } func initLinkNode(key,value int) *LinkNode{ return &amp;amp;LinkNode{ key:key, value:value, } } 定义LRU……</summary><content type="html">&lt;h2 id="lru">LRU&lt;/h2>
 &lt;h3 id="定义双向链表">定义双向链表&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1935,7 +2478,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/lru/" term="LRU" label="LRU"/><category scheme="https://tigbox.github.io/tags/lru/" term="LRU" label="LRU"/></entry><entry><title type="text">字符串</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/><id>https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-17T21:10:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">3.无重复字符的最长子串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 func lengthOfLongestSubstring(s string) int……</summary><content type="html">&lt;h2 id="3无重复字符的最长子串">3.无重复字符的最长子串&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/lru/" term="LRU" label="LRU"/><category scheme="https://tigbox.github.io/tags/lru/" term="LRU" label="LRU"/></entry><entry><title type="text">字符串</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/><id>https://tigbox.github.io/posts/%E5%AD%97%E7%AC%A6%E4%B8%B2/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-17T21:10:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">3.无重复字符的最长子串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 func lengthOfLongestSubstring(s string) int……</summary><content type="html">&lt;h2 id="3无重复字符的最长子串">3.无重复字符的最长子串&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -2082,7 +2625,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/><category scheme="https://tigbox.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/></entry><entry><title type="text">单链表</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/"/><id>https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-17T20:53:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">区间内的单链表反转 leetcode题号是92，整体翻转单链表很简单，而这个重点是你需……</summary><content type="html">&lt;h2 id="区间内的单链表反转">区间内的单链表反转&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/><category scheme="https://tigbox.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" term="字符串" label="字符串"/></entry><entry><title type="text">单链表</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/"/><id>https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-17T20:53:26+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">区间内的单链表反转 leetcode题号是92，整体翻转单链表很简单，而这个重点是你需……</summary><content type="html">&lt;h2 id="区间内的单链表反转">区间内的单链表反转&lt;/h2>
 &lt;p>leetcode题号是92，整体翻转单链表很简单，而这个重点是你需要将整体切成三段，将中间那段翻转，然后首尾连接起来&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -2515,7 +3058,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/><category scheme="https://tigbox.github.io/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/></entry><entry><title type="text">排序</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-17T16:24:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">快速排序 理解的了话要是深入研究就会发现快排不是那么简单的的，如果让自己去发明快速排序……</summary><content type="html">&lt;h2 id="快速排序">快速排序&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/><category scheme="https://tigbox.github.io/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/" term="单链表" label="单链表"/></entry><entry><title type="text">排序</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/"/><id>https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-17T16:24:25+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">快速排序 理解的了话要是深入研究就会发现快排不是那么简单的的，如果让自己去发明快速排序……</summary><content type="html">&lt;h2 id="快速排序">快速排序&lt;/h2>
 &lt;p>理解的了话要是深入研究就会发现快排不是那么简单的的，如果让自己去发明快速排序的算法还是挺困难的，毕竟是这1962年左右图灵奖得主的研究成果，怎么说都是一篇论文。&lt;/p>
 &lt;p>核心是针对数组的左右闭区间，在确定一个支点的情况下，把小于支点的都放左边、把大于支点的都放在右边，依据这样分区思想再继续不断迭代。那么重点就是具体的分区方法。应该有3种分区的方式，这里就说两种吧，因为第三种分区办法还没有理解呢。&lt;/p>
 &lt;h3 id="洛穆托分区">洛穆托分区&lt;/h3>
@@ -2551,7 +3094,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="霍尔分区">霍尔分区&lt;/h3>
-&lt;p>第二种分区方法叫「Hoare-Partition」是比较好理解的， 有点类似于双向奔赴，判断交换。从右边开始遍历，碰到比支点大的就一直向左移动；如果碰到比支点小的就停住。从做左边开始遍历，碰到比支点小的就一直向右移动，如果碰到比支点小的就停住。 交换左右的值。&lt;/p>
+&lt;p>第二种分区方法叫「Hoare-Partition」对我来说是比较好理解的， 有点类似于双向奔赴，判断交换。从右边开始遍历，碰到比支点大的就一直向左移动；如果碰到比支点小的就停住。从做左边开始遍历，碰到比支点小的就一直向右移动，如果碰到比支点小的就停住。 交换左右的值。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -3153,7 +3696,130 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/></entry><entry><title type="text">完全二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-16T23:17:05+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">完全二叉树的定义这里就不说了，问一下google就好。 判断是否完全二叉树 思路：定义r……</summary><content type="html">&lt;p>完全二叉树的定义这里就不说了，问一下google就好。&lt;/p>
+&lt;/div>&lt;h2 id="用官方推荐的堆排序的方法">用官方推荐的堆排序的方法&lt;/h2>
+&lt;p>具体的实现package是container/heap, 需要自己实现public的5个方法， 3个值类型的，2个指针类型的，&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">Interface&lt;/span> &lt;span class="kd">interface&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sort&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Interface&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="nx">any&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// add x as element Len()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">Pop&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="nx">any&lt;/span> &lt;span class="c1">// remove and return element Len() - 1.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>比如实现类如下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">List&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Swap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Less&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">j&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">j&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{})&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">.(&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Pop&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">old&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">length&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">old&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">result&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">old&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">*&lt;/span>&lt;span class="nx">list&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">old&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="nx">length&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">result&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>具体测试的代码如下，&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>heap.Init初始化堆&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当堆长度小于指定长度或者当前元素比top元素还大的时候才会push，别忘记要随着push随着pop&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>重点：&lt;code>如果要取第K大的数， 需要用到小顶堆&lt;/code>，因为top（）是当前最小的，比它大才push进去。&lt;/p>
+&lt;p>&lt;code>如果要取第K小的数，需要用到大顶堆&lt;/code>，因为top（）是当前最大的，比它小才push进去。&lt;/p>
+&lt;p>既然这样，就可以用优化的思路，比如从一万个数中找到top 1000大的，那么就用到小顶堆。从一万个数中找到top 9000大的，就是找到top 1000小的，那么就用大顶堆。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">9&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">list&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">List&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">k&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="mi">8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">arr&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nx">k&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Top&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">list&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Len&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">k&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">heap&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pop&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">list&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/><category scheme="https://tigbox.github.io/tags/%E6%8E%92%E5%BA%8F/" term="排序" label="排序"/></entry><entry><title type="text">完全二叉树</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/"/><id>https://tigbox.github.io/posts/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-16T23:17:05+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">完全二叉树的定义这里就不说了，问一下google就好。 判断是否完全二叉树 思路：定义r……</summary><content type="html">&lt;p>完全二叉树的定义这里就不说了，问一下google就好。&lt;/p>
 &lt;h2 id="判断是否完全二叉树">判断是否完全二叉树&lt;/h2>
 &lt;p>思路：定义root节点是0，那么左节点的索引就是1，右节点的索引就是2，以此类推。&lt;/p>
 &lt;p>如果是完全二叉树，假设当前的节点索引是index，那么&lt;code>左节点的索引就是2*index+1&lt;/code>，&lt;code>右节点的索引是2*index+1&lt;/code>,按照这个思路，总是能计算出最大的那个index的， 并且在这个过程中记录size的数量。最后看&lt;code>size是否等于index+1&lt;/code>，如果相等说明是完全二叉树。&lt;/p>
@@ -3313,7 +3979,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树序列化和反序列化</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-13T13:06:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树序列化 进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递……</summary><content type="html">&lt;h2 id="二叉树序列化">二叉树序列化&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树序列化和反序列化</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-13T13:06:47+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树序列化 进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递……</summary><content type="html">&lt;h2 id="二叉树序列化">二叉树序列化&lt;/h2>
 &lt;p>进行序列化有多种方式，可以是先序、中序、后序，这三种比较教科书， 如果是递归实现的话比较简单，当然除了这三种还有层序遍历甚至S型的层序遍历。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -3905,7 +4571,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">二叉树的各种判定</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/"/><id>https://tigbox.github.io/posts/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%84%E7%A7%8D%E5%88%A4%E5%AE%9A/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-11T10:51:22+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。 每个含义各不相同， 今天……</summary><content type="html">&lt;blockquote>
 &lt;p>二叉树可以分成：二叉搜索树，平衡二叉树，完全二叉树，满二叉树。&lt;/p>
 &lt;p>每个含义各不相同， 今天就来用coding的方式来说一下如何判定是什么二叉树。&lt;/p>
 &lt;/blockquote>
@@ -4490,7 +5156,7 @@ maxDepth--&amp;gt; maxDepth
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/></entry><entry><title type="text">sort.Sort</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/sort.sort/"/><id>https://tigbox.github.io/posts/sort.sort/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-09T15:13:07+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">golang中的排序 说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法……</summary><content type="html">&lt;h2 id="golang中的排序">golang中的排序&lt;/h2>
 &lt;p>说到排序，这是一个古老又经典的话题。 可别说你自己实现一个排序算法，因为golang的官方包把各种排序包括快拍、插入排序、堆排都考虑进去了，满足了不同条件下最优空间复杂度和时间复杂度。&lt;/p>
 &lt;h3 id="最基本的用法">最基本的用法&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -4627,7 +5293,7 @@ maxDepth--&amp;gt; maxDepth
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;/li>
-&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
+&lt;/ol></content><category scheme="https://tigbox.github.io/categories/golang/" term="golang" label="golang"/><category scheme="https://tigbox.github.io/categories/sort/" term="sort" label="sort"/><category scheme="https://tigbox.github.io/tags/golang/" term="golang" label="golang"/></entry><entry><title type="text">Homebrew介绍</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/"/><id>https://tigbox.github.io/posts/homebrew%E4%BB%8B%E7%BB%8D/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-08T11:11:37+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的……</summary><content type="html">&lt;blockquote>
 &lt;p>Homebrew是Mac下的套件管理器，类似于Linux系统中的 yum 或者 apt-get ，它能让你的Mac更完美。&lt;/p>
 &lt;p>另外再说个题外话，homebrew的作者叫Max Howell（马克斯•霍威尔），Max Howell曾经参加Google面试，但Google拒绝了他，给出的答复是：“虽然我们90%的工程师都用你写的软件，但抱歉我们不能聘用你，因为你无法在白板上写出翻转二叉树。” 说这个梗没有具体的特指，提到这个趣事只是想说能力和应聘上的公司没有直接关系，合适就好。：）&lt;/p>
 &lt;p>看到这里毫不犹疑的去leetcode上刷了一下二叉树反转的题，嗯，求生欲满满！&lt;/p>
@@ -4796,7 +5462,7 @@ maxDepth--&amp;gt; maxDepth
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">brew upgrade mongodb
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-12-14T13:19:14+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
+&lt;/div></content><category scheme="https://tigbox.github.io/categories/homebrew/" term="homebrew" label="homebrew"/><category scheme="https://tigbox.github.io/categories/%E4%BA%8C%E5%8F%89%E6%A0%91/" term="二叉树" label="二叉树"/><category scheme="https://tigbox.github.io/tags/homebrew/" term="homebrew" label="homebrew"/></entry><entry><title type="text">brew碰到的一些问题</title><link rel="alternate" type="text/html" href="https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/><id>https://tigbox.github.io/posts/brew%E7%A2%B0%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id><updated>2022-12-26T16:21:07+00:00</updated><published>2022-11-07T16:00:23+08:00</published><author><name>tigbox</name><uri>https://tigbox.github.io/</uri><email>77765477@qq.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">brew update 卡死问题，可以按照下面的办法尝试解决。 经常碰到一些因为「科学上网」导致的brew……</summary><content type="html">&lt;h2 id="brew-update-卡死问题可以按照下面的办法尝试解决">brew update 卡死问题，可以按照下面的办法尝试解决。&lt;/h2>
 &lt;p>经常碰到一些因为「科学上网」导致的brew卡死问题， 如果你也遇见了，要么就翻一下， 要么就如下换一下源。&lt;/p>
 &lt;ol>
 &lt;li>
