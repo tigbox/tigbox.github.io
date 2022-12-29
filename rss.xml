@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 26 Dec 2022 16:21:10 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>Git</title><link>https://tigbox.github.io/posts/git/</link><guid isPermaLink="true">https://tigbox.github.io/posts/git/</guid><pubDate>Fri, 16 Dec 2022 20:01:53 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="git的分层存储">git的分层存储&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 29 Dec 2022 10:18:43 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>切片表达式</title><link>https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid><pubDate>Thu, 29 Dec 2022 14:09:31 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;a href="https://go.dev/ref/spec#Slice_expressions">https://go.dev/ref/spec#Slice_expressions&lt;/a>&lt;/p>
+&lt;p>这个golang的开发文档相当于教学大纲的地位， 如果有什么不明白的地方几乎都可以从这里找到答案。&lt;/p>
+&lt;h2 id="问题">问题&lt;/h2>
+&lt;ol>
+&lt;li>source[:0]为什么capacity是10&lt;/li>
+&lt;li>为什么source[2:6:7]的capacity是5&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">PrintSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%v, len=%d, cap=%d\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nb">cap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">source&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">int&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">9&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">PrintSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1">// [], len=0, cap=10
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">PrintSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">[:&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1">// [0 1 2 3 4 5], len=6, cap=10
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">PrintSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:])&lt;/span> &lt;span class="c1">// [2 3 4 5 6 7 8 9], len=8, cap=8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nf">PrintSlice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">source&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1">// [2 3 4 5], len=4, cap=5
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="切片表达式">切片表达式&lt;/h2>
+&lt;p>slice expression能够作用于字符串、数组、数组指针及切片。它有两种变体，一种是上下限的简单形式，一种是指定容器容量的完整形式。&lt;/p>
+&lt;h3 id="简单切片表达式">简单切片表达式&lt;/h3>
+&lt;p>&lt;code>a[low:high]&lt;/code>记住·左闭右开·&lt;/p>
+&lt;p>如果a是指向数组的指针的话就(*a)[low:high]&lt;/p>
+&lt;p>在简单切片表达式的情况下，capacity没有强行现实，只有low和high，而low 和high要符合&lt;code>0&lt;/code> &amp;lt;= &lt;code>low&lt;/code> &amp;lt;= &lt;code>high&lt;/code> &amp;lt;= &lt;code>len(a)&lt;/code>的条件。如果不满足这个条件，就会发生编译错误或者运行时panic。&lt;/p>
+&lt;p>比如low比high大，那么编译就会报错invalid slice indices。&lt;/p>
+&lt;p>比如high比len大，那么运行时就会数组越界而panic。&lt;/p>
+&lt;ul>
+&lt;li>左闭右开&lt;/li>
+&lt;li>low的缺省值是0，high的缺省值是len(a)-1&lt;/li>
+&lt;li>要符合&lt;code>0&lt;/code> &amp;lt;= &lt;code>low&lt;/code> &amp;lt;= &lt;code>high&lt;/code> &amp;lt;= &lt;code>len(a)&lt;/code>&lt;/li>
+&lt;li>新切片cap=&lt;code>cap(a)-low&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>针对问题1，PrintSlice(source[:0]) // [], len=0, cap=10。下限low是默认值0，是和原始切片一样的，并没有改变cap，所以cap依旧是10。&lt;/p>
+&lt;h3 id="全切片表达式">全切片表达式&lt;/h3>
+&lt;p>full slice expression，其实它才是主要的enterprise版本的切片表达式。&lt;/p>
+&lt;p>&lt;code>a[low : high : max]&lt;/code> low 和high和上面说的一样，max表示的切片容量的限制上限，有人叫他limit capacity。&lt;/p>
+&lt;p>唯一要说的就是&lt;code>0 &amp;lt;= low &amp;lt;= high &amp;lt;= max &amp;lt;= cap(a)&lt;/code>&lt;/p>
+&lt;p>如果max超过cap，那么就会引发运行时panic。&lt;/p>
+&lt;ul>
+&lt;li>新切片cap=&lt;code>max-low&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="回答">回答&lt;/h2>
+&lt;p>对于问题1 。source[:0]为什么capacity是10 ？&lt;/p>
+&lt;p>这是简单切片表达式，low缺省值是0，而原本的切片source的容量是10，所以10-0=10，新的切片cap也是10。&lt;/p>
+&lt;p>对于问题2。为什么source[2:6:7]的capacity是5？&lt;/p>
+&lt;p>这是全切片表达式，新的切片cap是7-2即5。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;ul>
+&lt;li>low和high是左闭右开的。&lt;/li>
+&lt;li>low的缺省值是0，high的缺省值是len(a)-1，max的缺省值是cap(a)&lt;/li>
+&lt;li>要符合&lt;code>0 &amp;lt;= low &amp;lt;= high &amp;lt;= max &amp;lt;= cap(a)&lt;/code>&lt;/li>
+&lt;li>新的切片cap=cap'-low，在简单模式下cap'=原切片cap，在全模式下cap'=max&lt;/li>
+&lt;/ul>
+&lt;p>另外，我们经常会对slice进行append操作，那么当超出cap的时候， 新的切片的cap是原cap的2倍。这是当cap在1024内的情况。&lt;/p>
+&lt;p>如果超过了1024，那么就会从2倍衰减到1.75倍到1.5倍。&lt;/p></description><category domain="https://tigbox.github.io/categories/slice/">slice</category><category domain="https://tigbox.github.io/categories/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/">切片表达式</category><category domain="https://tigbox.github.io/tags/slice/">slice</category><category domain="https://tigbox.github.io/tags/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/">切片表达式</category></item><item><title>Git</title><link>https://tigbox.github.io/posts/git/</link><guid isPermaLink="true">https://tigbox.github.io/posts/git/</guid><pubDate>Fri, 16 Dec 2022 20:01:53 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="git的分层存储">git的分层存储&lt;/h2>
 &lt;ul>
 &lt;li>远端仓库remote repository&lt;/li>
 &lt;li>本地仓库remote repository(隶属于版本库)&lt;/li>
@@ -3059,7 +3128,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description><category domain="https://tigbox.github.io/categories/%E5%8D%95%E9%93%BE%E8%A1%A8/">单链表</category><category domain="https://tigbox.github.io/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/">单链表</category></item><item><title>排序</title><link>https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E6%8E%92%E5%BA%8F/</guid><pubDate>Thu, 17 Nov 2022 16:24:25 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="快速排序">快速排序&lt;/h2>
-&lt;p>理解的了话要是深入研究就会发现快排不是那么简单的的，如果让自己去发明快速排序的算法还是挺困难的，毕竟是这1962年左右图灵奖得主的研究成果，怎么说都是一篇论文。&lt;/p>
+&lt;p>理解的了话要是深入研究就会发现快排不是那么简单的的，如果让自己去发明快速排序的算法还是挺困难的，毕竟是这1962年左右图灵奖得主的研究成果，即便过去60年，我自持也没有信心能发明这样的算法并加以证明。&lt;/p>
 &lt;p>核心是针对数组的左右闭区间，在确定一个支点的情况下，把小于支点的都放左边、把大于支点的都放在右边，依据这样分区思想再继续不断迭代。那么重点就是具体的分区方法。应该有3种分区的方式，这里就说两种吧，因为第三种分区办法还没有理解呢。&lt;/p>
 &lt;h3 id="洛穆托分区">洛穆托分区&lt;/h3>
 &lt;p>一种分区方法叫「Lomuto-Partition」是有点类似于追击的方式。左右双指针都是从start开始的，如果右比支点小， 那么就把右值交换到左，然后左就指向下一位。当右进行到支点的前一位的时候就退出遍历，此时的左实际上是应该是存放支点值的。&lt;/p>
@@ -3095,6 +3164,22 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/div>
 &lt;/div>&lt;h3 id="霍尔分区">霍尔分区&lt;/h3>
 &lt;p>第二种分区方法叫「Hoare-Partition」对我来说是比较好理解的， 有点类似于双向奔赴，判断交换。从右边开始遍历，碰到比支点大的就一直向左移动；如果碰到比支点小的就停住。从做左边开始遍历，碰到比支点小的就一直向右移动，如果碰到比支点小的就停住。 交换左右的值。&lt;/p>
+&lt;p>额外需要注意的是，并非一定要从右边开始遍历，实际是这样的。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>注意一&lt;/p>
+&lt;p>如果支点在左侧， 那么右边先遍历；&lt;/p>
+&lt;p>如果支点在右侧，那么左边先遍历。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注意二&lt;/p>
+&lt;p>左右两边要覆盖等于的情况， 如果右边遍历&lt;code>pivotValue &amp;lt; arr[right]&lt;/code>， 那么左边就要&lt;code>arr[left]&amp;lt;=pivotValue&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注意三&lt;/p>
+&lt;p>右边大于支点，左边小于支点&lt;/p>
+&lt;/li>
+&lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
