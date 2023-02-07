@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 29 Dec 2022 10:18:43 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>切片表达式</title><link>https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid><pubDate>Thu, 29 Dec 2022 14:09:31 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;a href="https://go.dev/ref/spec#Slice_expressions">https://go.dev/ref/spec#Slice_expressions&lt;/a>&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>tigbox</title><link>https://tigbox.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.108.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>77765477@qq.com (tigbox)</managingEditor><webMaster>77765477@qq.com (tigbox)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 07 Feb 2023 14:05:56 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://tigbox.github.io/rss.xml"/><item><title>切片表达式</title><link>https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid><pubDate>Thu, 29 Dec 2022 14:09:31 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;a href="https://go.dev/ref/spec#Slice_expressions">https://go.dev/ref/spec#Slice_expressions&lt;/a>&lt;/p>
 &lt;p>这个golang的开发文档相当于教学大纲的地位， 如果有什么不明白的地方几乎都可以从这里找到答案。&lt;/p>
 &lt;h2 id="问题">问题&lt;/h2>
 &lt;ol>
@@ -70,7 +70,7 @@
 &lt;p>如果超过了1024，那么就会从2倍衰减到1.75倍到1.5倍。&lt;/p></description><category domain="https://tigbox.github.io/categories/slice/">slice</category><category domain="https://tigbox.github.io/categories/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/">切片表达式</category><category domain="https://tigbox.github.io/tags/slice/">slice</category><category domain="https://tigbox.github.io/tags/%E5%88%87%E7%89%87%E8%A1%A8%E8%BE%BE%E5%BC%8F/">切片表达式</category></item><item><title>Git</title><link>https://tigbox.github.io/posts/git/</link><guid isPermaLink="true">https://tigbox.github.io/posts/git/</guid><pubDate>Fri, 16 Dec 2022 20:01:53 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="git的分层存储">git的分层存储&lt;/h2>
 &lt;ul>
 &lt;li>远端仓库remote repository&lt;/li>
-&lt;li>本地仓库remote repository(隶属于版本库)&lt;/li>
+&lt;li>本地仓库local repository(隶属于版本库)&lt;/li>
 &lt;li>暂存区index/stage（隶属于版本库）&lt;/li>
 &lt;li>工作区workspace&lt;/li>
 &lt;/ul>
@@ -2695,7 +2695,51 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div></description><category domain="https://tigbox.github.io/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</category><category domain="https://tigbox.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</category></item><item><title>单链表</title><link>https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</link><guid isPermaLink="true">https://tigbox.github.io/posts/%E5%8D%95%E9%93%BE%E8%A1%A8/</guid><pubDate>Thu, 17 Nov 2022 20:53:26 +0800</pubDate><author>77765477@qq.com (tigbox)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="区间内的单链表反转">区间内的单链表反转&lt;/h2>
-&lt;p>leetcode题号是92，整体翻转单链表很简单，而这个重点是你需要将整体切成三段，将中间那段翻转，然后首尾连接起来&lt;/p>
+&lt;p>最简单的单链表反转&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>1432&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>存储next作为单独变量（1），最后next赋值给当前变量（4）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>之前值等于当前值&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>root.Next = 之前值&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">reverse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">previous&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">root&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">root&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">next&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">root&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">previous&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">previous&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">root&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">root&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">previous&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>leetcode题号是92，整体翻转单链表很简单，而这个重点是你需要将整体切成三段，将中间那段翻转，然后首尾连接起来&lt;/p>
+&lt;ul>
+&lt;li>单链表检查头指针是否为空，不需要检查尾指针&lt;/li>
+&lt;/ul>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -2734,10 +2778,13 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;span class="lnt">34
 &lt;/span>&lt;span class="lnt">35
 &lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">reverse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">outHead&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">head&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">tail&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">outTail&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">outHead&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">head&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 单链表检查头指针是否为空，不需要检查尾指针
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">outHead&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">head&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">outHead&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">tail&lt;/span>
@@ -2757,7 +2804,8 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">outHead&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dummyNode&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">start&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">end&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">head&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">head&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">:=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">left&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 从1到left-1，找到起跑线
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">:=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nx">left&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">outHead&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">outHead&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">start&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">start&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">end&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">end&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
@@ -2771,6 +2819,76 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">dummyNode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="找到倒数第k个元素">找到倒数第K个元素&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">findK&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">k&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">left&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">right&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">root&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">root&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// i从1开始，符合人类计数
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">:=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="o">&amp;lt;=&lt;/span>&lt;span class="nx">k&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 处理空的情况
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">right&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">right&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">right&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">right&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">right&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">right&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">left&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">left&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">left&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>当然还可以简化一点&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">root&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">findK&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">k&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">ListNode&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">left&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">right&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">root&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">root&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">right&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">k&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">right&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">right&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">k&lt;/span>&lt;span class="o">--&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="nx">right&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">right&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">right&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">left&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">left&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Next&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">left&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
@@ -4894,7 +5012,7 @@ len2 := expand(s, i, i+1)&lt;/p>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="判定平衡二叉树">判定平衡二叉树&lt;/h2>
-&lt;p>这个没什么好说的了，用递归的办法简单直接的coding&lt;/p>
+&lt;p>平衡二叉树的定义：任意一个结点，其两棵子树的高度差不超过1。还算幸运的事这种题目给出了平衡的定义。这个没什么好说的了，用递归的办法简单直接的coding。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
